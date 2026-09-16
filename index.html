@@ -1482,6 +1482,128 @@
 
   .author-card { display: none; } /* replaced by pen-card */
 
+
+  /* —— SPA views —— */
+  .spa-view { display: none; }
+  .spa-view.active { display: block; }
+  .desk-chrome.spa-view.active { display: block; }
+  body.solo-escribir .spa-view { display: none !important; }
+  body.solo-escribir .solo-surface { display: block; }
+
+  .view-panel { padding: 0 0 2rem; }
+  .view-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 1.15rem;
+  }
+  .view-head h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.55rem; font-weight: 700; letter-spacing: -0.02em;
+  }
+  .view-head .view-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+  .view-pen-chip {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.78rem; color: var(--green); background: var(--sage-pill);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 0.28rem 0.7rem; font-weight: 500;
+  }
+  .view-toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+  .view-toolbar input[type="text"],
+  .view-toolbar input[type="date"],
+  .view-panel .add-row input[type="text"],
+  .view-panel .add-row input[type="date"],
+  .view-panel .add-row select {
+    border: 1px solid var(--border); background: var(--card);
+    border-radius: 10px; padding: 0.5rem 0.75rem; outline: none; min-width: 0;
+  }
+  .view-toolbar input:focus, .view-panel .add-row input:focus, .view-panel .add-row select:focus {
+    border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,145,168,0.18);
+  }
+  .add-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.85rem; }
+  .add-row input { flex: 1; min-width: 140px; }
+  .empty-state {
+    text-align: center; padding: 2.25rem 1.25rem; color: var(--muted);
+    border: 1px dashed var(--border); border-radius: var(--radius); background: var(--card);
+  }
+  .empty-state .emoji { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  .empty-state p { font-size: 0.9rem; max-width: 28rem; margin: 0 auto; }
+  .ms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.85rem; }
+  .ms-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1rem 1.05rem; box-shadow: var(--shadow); cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s; text-align: left; width: 100%;
+  }
+  .ms-card:hover { border-color: var(--rose-soft); }
+  .ms-card.is-active { border-color: var(--green); box-shadow: 0 0 0 3px rgba(232,145,168,0.2); }
+  .ms-card .ms-title { font-family: "Source Serif 4", Georgia, serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .ms-card .ms-meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.35rem; }
+  .ms-card .ms-actions { display: flex; gap: 0.4rem; margin-top: 0.75rem; flex-wrap: wrap; }
+  .full-task-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .full-task-item {
+    display: flex; align-items: flex-start; gap: 0.65rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 0.85rem;
+  }
+  .full-task-item.done .ft-text { text-decoration: line-through; color: var(--muted); }
+  .ft-check {
+    width: 22px; height: 22px; border-radius: 7px; border: 1.5px solid var(--border);
+    display: grid; place-items: center; flex-shrink: 0; margin-top: 1px; color: #fff;
+  }
+  .full-task-item.done .ft-check { background: var(--green); border-color: var(--green); }
+  .ft-check svg { width: 12px; height: 12px; opacity: 0; }
+  .full-task-item.done .ft-check svg { opacity: 1; }
+  .ft-body { flex: 1; min-width: 0; }
+  .ft-text { font-size: 0.9rem; }
+  .ft-tag { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
+  .ft-del { font-size: 0.75rem; color: var(--danger); padding: 0.25rem 0.45rem; border-radius: 8px; }
+  .ft-del:hover { background: rgba(201,123,123,0.12); }
+  .event-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .event-item {
+    display: flex; align-items: center; gap: 0.75rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 0.85rem;
+  }
+  .event-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; background: var(--green); }
+  .event-item .dot.amber { background: var(--coral); }
+  .event-item .dot.red { background: var(--danger); }
+  .event-item .ev-title { flex: 1; font-size: 0.9rem; }
+  .event-item .ev-date { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+  .stats-kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.85rem; margin-bottom: 1rem; }
+  .prompt-list, .spark-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .prompt-item, .spark-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 0.85rem 1rem; display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .prompt-item .pr-text, .spark-item .sp-text {
+    flex: 1; font-family: "Source Serif 4", Georgia, serif; font-size: 0.98rem; line-height: 1.4;
+  }
+  .prompt-actions, .spark-actions { display: flex; gap: 0.35rem; flex-shrink: 0; flex-wrap: wrap; }
+  .btn-sm.danger { color: var(--danger); border-color: transparent; background: rgba(201,123,123,0.1); }
+  .btn-sm.danger:hover { background: rgba(201,123,123,0.2); }
+  .muse-inspire {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.35rem 1.25rem; text-align: center; margin-bottom: 1.15rem; box-shadow: var(--shadow);
+  }
+  .muse-inspire .inspire-quote {
+    font-family: "Source Serif 4", Georgia, serif; font-size: 1.2rem; line-height: 1.45;
+    margin: 0.75rem 0 1rem; min-height: 3.2em;
+  }
+  .muse-inspire .inspire-actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+  .confirm-backdrop {
+    position: fixed; inset: 0; background: rgba(74, 63, 74, 0.35);
+    display: none; align-items: center; justify-content: center; z-index: 1200; padding: 1rem;
+  }
+  .confirm-backdrop.open { display: flex; }
+  .confirm-modal {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 1.35rem 1.4rem; max-width: 420px; width: 100%;
+    box-shadow: 0 12px 40px rgba(74,63,74,0.18);
+  }
+  .confirm-modal h3 { font-family: "Source Serif 4", Georgia, serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .confirm-modal .confirm-body { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 1.15rem; }
+  .confirm-modal .confirm-body strong { color: var(--ink); }
+  .confirm-actions { display: flex; gap: 0.55rem; justify-content: flex-end; flex-wrap: wrap; }
+  .btn-danger-confirm { background: var(--danger); color: #fff; border-radius: 10px; padding: 0.55rem 1rem; font-weight: 500; }
+  .btn-danger-confirm:hover { filter: brightness(0.95); }
+  .project.is-active-ms { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 10px; }
+
   @media (max-width: 1100px) {
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
     .improv-strip { grid-template-columns: 1fr; }
@@ -1579,7 +1701,7 @@
     <div class="topbar">
       <div class="topbar-left">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span data-i18n="navDesk">Escritorio</span>
+        <span id="topbarViewTitle" data-i18n="navDesk">Escritorio</span>
       </div>
       <div class="search-pill">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -1597,7 +1719,7 @@
       </div>
     </div>
 
-    <div class="desk-chrome">
+    <div class="desk-chrome spa-view active" id="view-desk" data-view="desk">
     <div class="hero">
       <div>
         <p class="greeting" id="greeting">Buenas noches<span class="pen-badge" id="greetingPen"></span></p>
@@ -1889,6 +2011,172 @@
     </div>
     </div><!-- /.desk-chrome -->
 
+    <!-- SPA: Manuscripts -->
+    <div class="spa-view view-panel" id="view-ms" data-view="ms" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navMs">Manuscritos</h2>
+          <p class="view-sub" data-i18n="msSub">Tus proyectos · toca uno para activarlo en el Escritorio</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <div class="ms-grid" id="msGrid"></div>
+      <div class="empty-state" id="msEmpty" hidden>
+        <div class="emoji">📖</div>
+        <p data-i18n="emptyMs">Aún no hay manuscritos. Los ejemplos del escritorio aparecerán aquí, o añade uno abajo.</p>
+      </div>
+      <div class="add-row card" style="padding:0.85rem;margin-top:1rem;border:1px solid var(--border);border-radius:var(--radius)">
+        <input type="text" id="msNewTitle" data-i18n-placeholder="msNewPh" placeholder="Título del manuscrito…" maxlength="80" />
+        <select id="msNewStatus" aria-label="Status">
+          <option value="draft" data-i18n="statusDraft">En borrador</option>
+          <option value="revising" data-i18n="statusRevising">Revisando</option>
+          <option value="outlining" data-i18n="statusOutlining">Esquematizando</option>
+        </select>
+        <button type="button" class="btn-sm primary" id="msAddBtn" data-i18n="add">Añadir</button>
+      </div>
+    </div>
+
+    <!-- SPA: Tasks -->
+    <div class="spa-view view-panel" id="view-tasks" data-view="tasks" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navTasks">Tareas</h2>
+          <p class="view-sub" data-i18n="tasksSub">Lista completa · se guarda en este navegador</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <ul class="full-task-list" id="fullTaskList"></ul>
+      <div class="empty-state" id="tasksEmpty" hidden>
+        <div class="emoji">✓</div>
+        <p data-i18n="emptyTasks">No hay tareas. Añade una para empezar el día con calma.</p>
+      </div>
+      <div class="add-row">
+        <input type="text" id="taskNewText" data-i18n-placeholder="taskNewPh" placeholder="Nueva tarea…" maxlength="200" />
+        <input type="text" id="taskNewTag" data-i18n-placeholder="taskTagPh" placeholder="Etiqueta (opcional)" maxlength="60" style="flex:0.5" />
+        <button type="button" class="btn-sm primary" id="taskAddBtn" data-i18n="add">Añadir</button>
+      </div>
+    </div>
+
+    <!-- SPA: Calendar -->
+    <div class="spa-view view-panel" id="view-cal" data-view="cal" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navCal">Calendario</h2>
+          <p class="view-sub" data-i18n="calSub">Agenda próxima · plazos y citas suaves</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <ul class="event-list" id="eventList"></ul>
+      <div class="empty-state" id="calEmpty" hidden>
+        <div class="emoji">📅</div>
+        <p data-i18n="emptyCal">La agenda está vacía. Añade un plazo o una cita abajo.</p>
+      </div>
+      <div class="add-row">
+        <input type="text" id="eventNewTitle" data-i18n-placeholder="eventNewPh" placeholder="Evento…" maxlength="120" />
+        <input type="date" id="eventNewDate" />
+        <button type="button" class="btn-sm primary" id="eventAddBtn" data-i18n="add">Añadir</button>
+      </div>
+    </div>
+
+    <!-- SPA: Stats -->
+    <div class="spa-view view-panel" id="view-stats" data-view="stats" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navStats">Estadísticas</h2>
+          <p class="view-sub" data-i18n="statsSub">Palabras, racha y sesiones recientes</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <div class="stats-kpis">
+        <article class="card">
+          <div class="card-label" data-i18n="weeklyCount">Conteo semanal de palabras</div>
+          <p class="card-big" id="statsWeekly">0</p>
+          <p class="card-meta" id="statsWeeklyMeta"></p>
+        </article>
+        <article class="card">
+          <div class="card-label" data-i18n="streak">Racha de escritura</div>
+          <p class="card-big streak-num" id="statsStreak">0</p>
+          <p class="card-meta" data-i18n="streakMetaView">días con sesión registrada</p>
+        </article>
+        <article class="card">
+          <div class="card-label" data-i18n="dailyMomentum">Impulso vs. meta diaria</div>
+          <p class="card-big" id="statsToday">0</p>
+          <p class="card-meta" id="statsTodayMeta"></p>
+        </article>
+        <article class="card">
+          <div class="card-label" data-i18n="sessionsLabel">Sesiones</div>
+          <p class="card-big" id="statsSessions">0</p>
+          <p class="card-meta" data-i18n="sessionsMeta">guardadas en este navegador</p>
+        </article>
+      </div>
+      <article class="card chart-card">
+        <div class="chart-head">
+          <div class="card-label" style="margin:0" data-i18n="wordsPerDay">Palabras por día</div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-y" aria-hidden="true">
+            <span>1.800</span><span>1.350</span><span>900</span><span>450</span><span>0</span>
+          </div>
+          <svg viewBox="0 0 720 200" preserveAspectRatio="none" id="statsChart" aria-hidden="true"></svg>
+        </div>
+        <div class="chart-x" id="statsChartX"></div>
+      </article>
+      <article class="card" style="margin-top:1rem">
+        <h3 class="section-title" data-i18n="recentSessions">Sesiones recientes</h3>
+        <ul class="event-list" id="statsSessionList"></ul>
+        <div class="empty-state" id="statsSessionsEmpty" hidden style="margin-top:0.5rem">
+          <div class="emoji">✎</div>
+          <p data-i18n="emptySessions">Aún no hay sesiones. Cierra una desde el Escritorio o Solo escribir.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- SPA: Prompts -->
+    <div class="spa-view view-panel" id="view-prompts" data-view="prompts" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navPrompts">Disparadores</h2>
+          <p class="view-sub" data-i18n="promptsSub">Banco de prompts · copia o úsalos en Solo escribir</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <ul class="prompt-list" id="promptList"></ul>
+      <div class="empty-state" id="promptsEmpty" hidden>
+        <div class="emoji">💡</div>
+        <p data-i18n="emptyPrompts">No hay disparadores. Añade uno tierno para cuando falten las palabras.</p>
+      </div>
+      <div class="add-row">
+        <input type="text" id="promptNewText" data-i18n-placeholder="promptNewPh" placeholder="Nuevo disparador…" maxlength="280" />
+        <button type="button" class="btn-sm primary" id="promptAddBtn" data-i18n="add">Añadir</button>
+      </div>
+    </div>
+
+    <!-- SPA: Muse -->
+    <div class="spa-view view-panel" id="view-muse" data-view="muse" hidden>
+      <div class="view-head">
+        <div>
+          <h2 data-i18n="navMuse">Musa</h2>
+          <p class="view-sub" data-i18n="museSub">Inspiración suave · guarda chispas para después</p>
+        </div>
+        <span class="view-pen-chip" data-view-pen></span>
+      </div>
+      <div class="muse-inspire">
+        <div class="card-label" data-i18n="museInspire">Una chispa para hoy</div>
+        <p class="inspire-quote" id="museQuote">…</p>
+        <div class="inspire-actions">
+          <button type="button" class="btn-sm primary" id="museRandomBtn" data-i18n="museRandom">Otra chispa</button>
+          <button type="button" class="btn-sm" id="museSaveBtn" data-i18n="museSave">Guardar chispa</button>
+        </div>
+      </div>
+      <h3 class="section-title" data-i18n="savedSparks">Chispas guardadas</h3>
+      <ul class="spark-list" id="sparkList"></ul>
+      <div class="empty-state" id="sparksEmpty" hidden>
+        <div class="emoji">✨</div>
+        <p data-i18n="emptySparks">Todavía no hay chispas guardadas. Pulsa «Otra chispa» y guárdala si te gusta.</p>
+      </div>
+    </div>
+
+
     <!-- Solo escribir surface -->
     <div class="solo-surface" id="soloSurface">
       <div class="solo-bar">
@@ -1998,6 +2286,19 @@
   </div>
 </div>
 
+
+<!-- Confirm delete modal -->
+<div class="confirm-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-modal">
+    <h3 id="confirmTitle" data-i18n="confirmTitle">¿Eliminar?</h3>
+    <p class="confirm-body" id="confirmBody"></p>
+    <div class="confirm-actions">
+      <button type="button" class="btn-secondary" id="confirmCancel" style="flex:0;padding:0.55rem 1rem" data-i18n="cancel">Cancelar</button>
+      <button type="button" class="btn-danger-confirm" id="confirmOk" data-i18n="confirmDelete">Eliminar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -2009,6 +2310,14 @@
   const PEN_KEY = "folio-es-pennames";
   const DRAFTS_KEY = "folio-es-drafts";
   const THEME_KEY = "folio-es-theme";
+  const MS_KEY = "folio-es-manuscripts";
+  const ACTIVE_MS_KEY = "folio-es-active-ms";
+  const TASKS_KEY = "folio-es-tasks";
+  const EVENTS_KEY = "folio-es-events";
+  const PROMPTS_KEY = "folio-es-prompts";
+  const SPARKS_KEY = "folio-es-sparks";
+  const VIEW_KEY = "ink-house-view";
+
   const OLD_DEMO_PENS = ["Mileth P.", "M. Rivera", "Anónimo", "Anonymous"];
 
   // —— i18n ——
@@ -2195,6 +2504,54 @@
       metaHalf: "Te faltan {n} palabras para la meta de hoy. Un bloque corto basta.",
       metaLow: "Vas por {a} de {b}. Empieza con 15 minutos; el resto viene solo.",
       continuityMdTitle: "# Notas de continuidad de la serie\n\n",
+
+      cancel: "Cancelar",
+      confirmTitle: "¿Eliminar?",
+      confirmDelete: "Eliminar",
+      confirmDeletePenBody: "Se quitará el seudónimo «{name}» de la lista. No borra borradores ni sesiones ya guardadas; solo deja de estar disponible para elegir.",
+      confirmDeleteTaskBody: "Se eliminará la tarea «{name}». No se puede deshacer.",
+      confirmDeleteEventBody: "Se eliminará el evento «{name}» de la agenda. No se puede deshacer.",
+      confirmDeletePromptBody: "Se eliminará el disparador «{name}» del banco. No se puede deshacer.",
+      confirmDeleteSparkBody: "Se eliminará la chispa guardada «{name}». No se puede deshacer.",
+      confirmDeleteMsBody: "Se eliminará el manuscrito «{name}» de la lista. Los borradores Solo escribir con ese título siguen en el navegador hasta que los borres aparte.",
+      msSub: "Tus proyectos · toca uno para activarlo en el Escritorio",
+      tasksSub: "Lista completa · se guarda en este navegador",
+      calSub: "Agenda próxima · plazos y citas suaves",
+      statsSub: "Palabras, racha y sesiones recientes",
+      promptsSub: "Banco de prompts · copia o úsalos en Solo escribir",
+      museSub: "Inspiración suave · guarda chispas para después",
+      emptyMs: "Aún no hay manuscritos. Los ejemplos del escritorio aparecerán aquí, o añade uno abajo.",
+      emptyTasks: "No hay tareas. Añade una para empezar el día con calma.",
+      emptyCal: "La agenda está vacía. Añade un plazo o una cita abajo.",
+      emptyPrompts: "No hay disparadores. Añade uno tierno para cuando falten las palabras.",
+      emptySparks: "Todavía no hay chispas guardadas. Pulsa «Otra chispa» y guárdala si te gusta.",
+      emptySessions: "Aún no hay sesiones. Cierra una desde el Escritorio o Solo escribir.",
+      msNewPh: "Título del manuscrito…",
+      taskNewPh: "Nueva tarea…",
+      taskTagPh: "Etiqueta (opcional)",
+      eventNewPh: "Evento…",
+      promptNewPh: "Nuevo disparador…",
+      usePrompt: "Usar",
+      copyPrompt: "Copiar",
+      toastCopied: "Copiado al portapapeles",
+      toastPromptUsed: "Listo en Solo escribir",
+      toastMsActive: "Manuscrito activo: ",
+      toastTaskAdded: "Tarea añadida",
+      toastEventAdded: "Evento añadido",
+      toastPromptAdded: "Disparador añadido",
+      toastSparkSaved: "Chispa guardada",
+      toastDeleted: "Eliminado",
+      toastNeedTitle: "Escribe un título primero",
+      museInspire: "Una chispa para hoy",
+      museRandom: "Otra chispa",
+      museSave: "Guardar chispa",
+      savedSparks: "Chispas guardadas",
+      recentSessions: "Sesiones recientes",
+      sessionsLabel: "Sesiones",
+      sessionsMeta: "guardadas en este navegador",
+      streakMetaView: "días con sesión registrada",
+      writingAs: "Escribes como ",
+      setActiveMs: "Activar en Escritorio",
       anon: "Anónimo",
       p1: "Al norte del río",
       p2: "A poca distancia",
@@ -2382,6 +2739,54 @@
       metaHalf: "{n} words left for today's goal. A short block will do.",
       metaLow: "You're at {a} of {b}. Start with 15 minutes; the rest follows.",
       continuityMdTitle: "# Series continuity notes\n\n",
+
+      cancel: "Cancel",
+      confirmTitle: "Delete?",
+      confirmDelete: "Delete",
+      confirmDeletePenBody: "Pen name “{name}” will be removed from the list. Drafts and sessions already saved stay; it just won’t be available to choose.",
+      confirmDeleteTaskBody: "Task “{name}” will be deleted. This can’t be undone.",
+      confirmDeleteEventBody: "Event “{name}” will be removed from the schedule. This can’t be undone.",
+      confirmDeletePromptBody: "Prompt “{name}” will be removed from the bank. This can’t be undone.",
+      confirmDeleteSparkBody: "Saved spark “{name}” will be deleted. This can’t be undone.",
+      confirmDeleteMsBody: "Manuscript “{name}” will be removed from the list. Solo-write drafts with that title stay in the browser until you clear them separately.",
+      msSub: "Your projects · tap one to make it active on the Desk",
+      tasksSub: "Full list · saved in this browser",
+      calSub: "Upcoming schedule · soft deadlines & dates",
+      statsSub: "Words, streak, and recent sessions",
+      promptsSub: "Prompt bank · copy or send to Solo write",
+      museSub: "Gentle inspiration · save sparks for later",
+      emptyMs: "No manuscripts yet. Desk samples will show here, or add one below.",
+      emptyTasks: "No tasks. Add one to start the day gently.",
+      emptyCal: "The schedule is empty. Add a deadline or date below.",
+      emptyPrompts: "No prompts yet. Add a gentle one for when words stall.",
+      emptySparks: "No saved sparks yet. Hit “Another spark” and save one you like.",
+      emptySessions: "No sessions yet. Close one from the Desk or Solo write.",
+      msNewPh: "Manuscript title…",
+      taskNewPh: "New task…",
+      taskTagPh: "Tag (optional)",
+      eventNewPh: "Event…",
+      promptNewPh: "New prompt…",
+      usePrompt: "Use",
+      copyPrompt: "Copy",
+      toastCopied: "Copied to clipboard",
+      toastPromptUsed: "Ready in Solo write",
+      toastMsActive: "Active manuscript: ",
+      toastTaskAdded: "Task added",
+      toastEventAdded: "Event added",
+      toastPromptAdded: "Prompt added",
+      toastSparkSaved: "Spark saved",
+      toastDeleted: "Deleted",
+      toastNeedTitle: "Enter a title first",
+      museInspire: "A spark for today",
+      museRandom: "Another spark",
+      museSave: "Save spark",
+      savedSparks: "Saved sparks",
+      recentSessions: "Recent sessions",
+      sessionsLabel: "Sessions",
+      sessionsMeta: "saved in this browser",
+      streakMetaView: "days with a logged session",
+      writingAs: "Writing as ",
+      setActiveMs: "Set active on Desk",
       anon: "Anonymous",
       p1: "North of the River",
       p2: "A Short Distance",
@@ -2771,8 +3176,10 @@
       btnDel.type = "button";
       btnDel.className = "btn-pen-act danger";
       btnDel.textContent = t("delete");
-      btnDel.addEventListener("click", () => {
-        if (!confirm(t("confirmDeletePen") + "\n\n«" + penState.names[idx] + "»")) return;
+      btnDel.addEventListener("click", async () => {
+        const penName = penState.names[idx];
+        const ok = await askConfirm(t("confirmDeletePenBody").replace("{name}", "<strong>" + escapeHtml(penName) + "</strong>"));
+        if (!ok) return;
         penState.names.splice(idx, 1);
         if (!penState.names.includes(penState.active)) {
           penState.active = penState.names[0] || "";
@@ -2780,6 +3187,7 @@
         savePens();
         renderPens();
         renderSettingsPens();
+        if (typeof syncViewPenChips === "function") syncViewPenChips();
         toast(t("toastPenDeleted"));
       });
 
@@ -3125,6 +3533,14 @@
 
   // —— Collectors / export / novel report ——
   function getProjectRecords() {
+    if (typeof manuscripts !== "undefined" && manuscripts.length) {
+      return manuscripts.map(m => ({
+        title: msTitle(m),
+        status: msStatusLabel(m.status),
+        sub: msSubLabel(m),
+        progress: (m.progress || 0) + "%"
+      }));
+    }
     return [...document.querySelectorAll(".project-list .project")].map(p => {
       const title = (p.querySelector(".project-name")?.textContent || "").trim();
       const status = (p.querySelector(".pill")?.textContent || "").trim();
@@ -3140,6 +3556,9 @@
     }));
   }
   function getTasks() {
+    if (typeof tasks !== "undefined" && Array.isArray(tasks)) {
+      return tasks.map(tk => ({ text: taskText(tk), tag: taskTag(tk), done: !!tk.done }));
+    }
     return [...document.querySelectorAll(".task-item")].map(li => {
       const text = (li.querySelector(".task-text")?.textContent || "").trim();
       const tag = (li.querySelector(".task-tag")?.textContent || "").trim();
@@ -3325,20 +3744,22 @@
     if (e.key === "Enter") saveQuick();
   });
 
-  document.getElementById("addTask").addEventListener("click", () => toast(t("toastAddTask")));
+  document.getElementById("addTask").addEventListener("click", () => showView("tasks"));
   document.getElementById("fullStats").addEventListener("click", (e) => {
     e.preventDefault();
-    toast(t("toastFullStats"));
+    showView("stats");
   });
-  document.querySelector(".view-cal").addEventListener("click", () => toast(t("toastCal")));
+  document.querySelector(".view-cal").addEventListener("click", () => showView("cal"));
 
   document.querySelectorAll(".nav a").forEach(a => {
     a.addEventListener("click", (e) => {
-      if (a.id === "openSettings") return;
       e.preventDefault();
-      document.querySelectorAll(".nav a").forEach(x => x.classList.remove("active"));
-      a.classList.add("active");
-      if (a.dataset.nav !== "desk") toast(a.textContent.trim() + t("toastDemoView"));
+      const nav = a.dataset.nav;
+      if (nav === "settings") {
+        openSettings(e);
+        return;
+      }
+      showView(nav || "desk");
     });
   });
 
@@ -3549,6 +3970,597 @@
     }
   });
 
+
+  // —— Confirm modal ——
+  let confirmResolver = null;
+  const confirmModalEl = document.getElementById("confirmModal");
+  function askConfirm(bodyHtml) {
+    return new Promise(resolve => {
+      confirmResolver = resolve;
+      document.getElementById("confirmBody").innerHTML = bodyHtml;
+      document.getElementById("confirmTitle").textContent = t("confirmTitle");
+      document.getElementById("confirmCancel").textContent = t("cancel");
+      document.getElementById("confirmOk").textContent = t("confirmDelete");
+      confirmModalEl.classList.add("open");
+    });
+  }
+  function closeConfirm(result) {
+    confirmModalEl.classList.remove("open");
+    const r = confirmResolver;
+    confirmResolver = null;
+    if (r) r(!!result);
+  }
+  document.getElementById("confirmCancel").addEventListener("click", () => closeConfirm(false));
+  document.getElementById("confirmOk").addEventListener("click", () => closeConfirm(true));
+  confirmModalEl.addEventListener("click", (e) => { if (e.target === confirmModalEl) closeConfirm(false); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && confirmModalEl.classList.contains("open")) {
+      e.preventDefault();
+      closeConfirm(false);
+    }
+  });
+
+  function uid() {
+    return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+  }
+  function loadJSON(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw == null) return fallback;
+      return JSON.parse(raw);
+    } catch (_) { return fallback; }
+  }
+  function saveJSON(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // —— Manuscripts ——
+  function defaultManuscripts() {
+    return [
+      { id: "ms-p1", titleKey: "p1", title: null, status: "draft", progress: 32, subKey: "seriesRiver", pen: "" },
+      { id: "ms-p2", titleKey: "p2", title: null, status: "revising", progress: 78, subKey: "standalone", pen: "" },
+      { id: "ms-p3", titleKey: "p3", title: null, status: "outlining", progress: 45, subKey: "essays", pen: "" }
+    ];
+  }
+  function msTitle(m) {
+    if (m.title) return m.title;
+    if (m.titleKey) return t(m.titleKey);
+    return t("untitled");
+  }
+  function msSubLabel(m) {
+    if (m.sub) return m.sub;
+    if (m.subKey) return t(m.subKey);
+    return "";
+  }
+  function msStatusLabel(status) {
+    if (status === "revising") return t("statusRevising");
+    if (status === "outlining") return t("statusOutlining");
+    return t("statusDraft");
+  }
+  function msStatusClass(status) {
+    if (status === "revising") return "revising";
+    if (status === "outlining") return "outlining";
+    return "";
+  }
+  let manuscripts = loadJSON(MS_KEY, null);
+  if (!Array.isArray(manuscripts) || !manuscripts.length) {
+    manuscripts = defaultManuscripts();
+    saveJSON(MS_KEY, manuscripts);
+  }
+  let activeMsId = localStorage.getItem(ACTIVE_MS_KEY) || (manuscripts[0] && manuscripts[0].id) || "";
+
+  function getActiveManuscript() {
+    return manuscripts.find(m => m.id === activeMsId) || manuscripts[0] || null;
+  }
+  function setActiveManuscript(id, quiet) {
+    const m = manuscripts.find(x => x.id === id);
+    if (!m) return;
+    activeMsId = id;
+    localStorage.setItem(ACTIVE_MS_KEY, id);
+    const title = msTitle(m);
+    const focus = document.getElementById("focusManuscript");
+    if (focus) focus.value = title;
+    const hoy = document.getElementById("hoyManuscript");
+    if (hoy) hoy.textContent = title;
+    const firstCardTitle = document.querySelector(".grid-4 .card .card-title");
+    if (firstCardTitle) firstCardTitle.textContent = title;
+    if (typeof soloActive !== "undefined" && soloActive && typeof syncSoloMeta === "function") syncSoloMeta();
+    renderManuscriptsView();
+    syncDeskProjectHighlight();
+    if (!quiet) toast(t("toastMsActive") + title);
+  }
+  function syncDeskProjectHighlight() {
+    const active = getActiveManuscript();
+    const activeTitle = active ? msTitle(active) : "";
+    document.querySelectorAll(".project-list .project").forEach(p => {
+      const name = (p.querySelector(".project-name")?.textContent || "").trim();
+      p.classList.toggle("is-active-ms", typeof matchProjectName === "function" && matchProjectName(name, activeTitle));
+    });
+  }
+
+  // —— Tasks ——
+  function defaultTasks() {
+    return [
+      { id: uid(), textKey: "task1", text: null, tag: "", done: false },
+      { id: uid(), textKey: "task2", text: null, tagKey: "task2tag", tag: null, done: false },
+      { id: uid(), textKey: "task3", text: null, tag: "", done: false }
+    ];
+  }
+  let tasks = loadJSON(TASKS_KEY, null);
+  if (!Array.isArray(tasks)) {
+    tasks = defaultTasks();
+    saveJSON(TASKS_KEY, tasks);
+  }
+  function taskText(tk) { return tk.text || (tk.textKey ? t(tk.textKey) : ""); }
+  function taskTag(tk) { return tk.tag || (tk.tagKey ? t(tk.tagKey) : ""); }
+
+  // —— Events ——
+  function defaultEvents() {
+    const y = new Date().getFullYear();
+    const m = String(new Date().getMonth() + 1).padStart(2, "0");
+    return [
+      { id: uid(), titleKey: "sched1", title: null, date: y + "-" + m + "-18", color: "red" },
+      { id: uid(), titleKey: "sched2", title: null, date: "", color: "amber" },
+      { id: uid(), titleKey: "sched3", title: null, date: "", color: "green" }
+    ];
+  }
+  let events = loadJSON(EVENTS_KEY, null);
+  if (!Array.isArray(events)) {
+    events = defaultEvents();
+    saveJSON(EVENTS_KEY, events);
+  }
+  function eventTitle(ev) { return ev.title || (ev.titleKey ? t(ev.titleKey) : ""); }
+
+  // —— Prompts ——
+  function defaultPrompts() {
+    return [
+      { id: "pr1", es: "Escribe la escena que tu protagonista evita recordar — solo tres párrafos, sin adjetivos.", en: "Write the scene your protagonist avoids remembering — three paragraphs, no adjectives." },
+      { id: "pr2", es: "Una carta que nunca se envió. Empieza con: «Si hubieras abierto la puerta…»", en: "A letter that was never sent. Begin with: “If you had opened the door…”" },
+      { id: "pr3", es: "Describe la casa a las 3 a.m. solo con sonidos y olores.", en: "Describe the house at 3 a.m. using only sounds and smells." },
+      { id: "pr4", es: "Dos personajes cocinan juntos y discuten de todo menos de lo que importa.", en: "Two characters cook together and argue about everything except what matters." },
+      { id: "pr5", es: "El objeto en el cajón inferior: ¿quién lo dejó y por qué duele tocarlo?", en: "The object in the bottom drawer: who left it, and why does touching it hurt?" }
+    ];
+  }
+  let prompts = loadJSON(PROMPTS_KEY, null);
+  if (!Array.isArray(prompts) || !prompts.length) {
+    prompts = defaultPrompts();
+    saveJSON(PROMPTS_KEY, prompts);
+  }
+  function promptText(p) {
+    if (p.text) return p.text;
+    return lang === "en" ? (p.en || p.es || "") : (p.es || p.en || "");
+  }
+
+  const MUSE_POOL = {
+    es: [
+      "La siguiente frase no tiene que ser perfecta. Solo tiene que existir.",
+      "Escribe como quien deja una luz encendida para quien vuelve tarde.",
+      "Un detalle pequeño —una taza, una llave— puede cargar todo el capítulo.",
+      "Si te trabas, cambia de narrador por un párrafo. Luego vuelve.",
+      "Hoy basta con 200 palabras honestas.",
+      "La musa no grita; a veces solo susurra el nombre de un personaje."
+    ],
+    en: [
+      "The next sentence doesn’t have to be perfect. It only has to exist.",
+      "Write like someone leaving a light on for whoever comes home late.",
+      "One small detail — a cup, a key — can carry the whole chapter.",
+      "If you’re stuck, switch narrators for one paragraph. Then come back.",
+      "Today, 200 honest words are enough.",
+      "The muse doesn’t shout; sometimes she only whispers a character’s name."
+    ]
+  };
+  let sparks = loadJSON(SPARKS_KEY, []);
+  if (!Array.isArray(sparks)) sparks = [];
+  let currentMuseSpark = "";
+
+  let currentView = "desk";
+  const VIEW_TITLES = { desk: "navDesk", ms: "navMs", tasks: "navTasks", cal: "navCal", stats: "navStats", prompts: "navPrompts", muse: "navMuse" };
+
+  function syncViewPenChips() {
+    const label = (penState.active ? t("writingAs") + penState.active : "—");
+    document.querySelectorAll("[data-view-pen]").forEach(el => { el.textContent = label; });
+  }
+
+  function showView(name) {
+    if (name === "settings") { openSettings(); return; }
+    if (!VIEW_TITLES[name]) name = "desk";
+    currentView = name;
+    try { localStorage.setItem(VIEW_KEY, name); } catch (_) {}
+    document.querySelectorAll(".spa-view").forEach(el => {
+      const on = el.getAttribute("data-view") === name;
+      el.classList.toggle("active", on);
+      if (el.hasAttribute("hidden") || el.id !== "view-desk") {
+        if (el.id !== "view-desk") el.hidden = !on;
+      }
+    });
+    const desk = document.getElementById("view-desk");
+    if (desk) {
+      desk.classList.toggle("active", name === "desk");
+    }
+    document.querySelectorAll(".nav a[data-nav]").forEach(a => {
+      a.classList.toggle("active", a.dataset.nav === name);
+    });
+    const titleEl = document.getElementById("topbarViewTitle");
+    if (titleEl) {
+      titleEl.setAttribute("data-i18n", VIEW_TITLES[name]);
+      titleEl.textContent = t(VIEW_TITLES[name]);
+    }
+    syncViewPenChips();
+    if (name === "ms") renderManuscriptsView();
+    if (name === "tasks") renderTasksView();
+    if (name === "cal") renderCalendarView();
+    if (name === "stats") renderStatsView();
+    if (name === "prompts") renderPromptsView();
+    if (name === "muse") renderMuseView();
+  }
+
+  function renderManuscriptsView() {
+    const grid = document.getElementById("msGrid");
+    const empty = document.getElementById("msEmpty");
+    if (!grid) return;
+    grid.innerHTML = "";
+    if (!manuscripts.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    manuscripts.forEach(m => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ms-card" + (m.id === activeMsId ? " is-active" : "");
+      const pillClass = msStatusClass(m.status);
+      btn.innerHTML =
+        '<div class="ms-title"></div>' +
+        '<span class="pill ' + pillClass + '"></span>' +
+        '<div class="ms-meta"></div>' +
+        '<div class="progress" style="margin-top:0.55rem"><span style="width:' + (m.progress || 0) + '%"></span></div>' +
+        '<div class="ms-actions"></div>';
+      btn.querySelector(".ms-title").textContent = msTitle(m);
+      btn.querySelector(".pill").textContent = msStatusLabel(m.status);
+      const sub = msSubLabel(m);
+      const penBit = m.pen ? " · " + m.pen : "";
+      btn.querySelector(".ms-meta").textContent = (sub || "") + penBit + " · " + (m.progress || 0) + "%";
+      const actions = btn.querySelector(".ms-actions");
+      const act = document.createElement("button");
+      act.type = "button"; act.className = "btn-sm primary"; act.textContent = t("setActiveMs");
+      act.addEventListener("click", (e) => { e.stopPropagation(); setActiveManuscript(m.id); showView("desk"); });
+      const del = document.createElement("button");
+      del.type = "button"; del.className = "btn-sm danger"; del.textContent = t("delete");
+      del.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const name = msTitle(m);
+        const ok = await askConfirm(t("confirmDeleteMsBody").replace("{name}", "<strong>" + escapeHtml(name) + "</strong>"));
+        if (!ok) return;
+        manuscripts = manuscripts.filter(x => x.id !== m.id);
+        saveJSON(MS_KEY, manuscripts);
+        if (activeMsId === m.id) {
+          activeMsId = manuscripts[0] ? manuscripts[0].id : "";
+          if (activeMsId) setActiveManuscript(activeMsId, true);
+          else localStorage.setItem(ACTIVE_MS_KEY, "");
+        }
+        renderManuscriptsView();
+        fillNovelSelects();
+        toast(t("toastDeleted"));
+      });
+      actions.appendChild(act); actions.appendChild(del);
+      btn.addEventListener("click", () => setActiveManuscript(m.id));
+      grid.appendChild(btn);
+    });
+  }
+
+  function renderTasksView() {
+    const list = document.getElementById("fullTaskList");
+    const empty = document.getElementById("tasksEmpty");
+    if (!list) return;
+    list.innerHTML = "";
+    if (!tasks.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    tasks.forEach(tk => {
+      const li = document.createElement("li");
+      li.className = "full-task-item" + (tk.done ? " done" : "");
+      li.innerHTML =
+        '<button type="button" class="ft-check" aria-label="' + escapeHtml(t("completed")) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></button>' +
+        '<div class="ft-body"><p class="ft-text"></p><p class="ft-tag"></p></div>' +
+        '<button type="button" class="ft-del">' + escapeHtml(t("delete")) + '</button>';
+      li.querySelector(".ft-text").textContent = taskText(tk);
+      const tag = taskTag(tk);
+      const tagEl = li.querySelector(".ft-tag");
+      if (tag) tagEl.textContent = tag; else tagEl.remove();
+      li.querySelector(".ft-check").addEventListener("click", () => {
+        tk.done = !tk.done; saveJSON(TASKS_KEY, tasks); renderTasksView(); syncDeskTasks();
+      });
+      li.querySelector(".ft-del").addEventListener("click", async () => {
+        const name = taskText(tk);
+        const ok = await askConfirm(t("confirmDeleteTaskBody").replace("{name}", "<strong>" + escapeHtml(name) + "</strong>"));
+        if (!ok) return;
+        tasks = tasks.filter(x => x.id !== tk.id);
+        saveJSON(TASKS_KEY, tasks); renderTasksView(); syncDeskTasks(); toast(t("toastDeleted"));
+      });
+      list.appendChild(li);
+    });
+  }
+
+  function syncDeskTasks() {
+    const ul = document.querySelector(".desk-chrome .task-list");
+    if (!ul) return;
+    ul.innerHTML = "";
+    tasks.slice(0, 5).forEach(tk => {
+      const li = document.createElement("li");
+      li.className = "task-item" + (tk.done ? " done" : "");
+      li.innerHTML = '<span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span><div><p class="task-text"></p></div>';
+      li.querySelector(".task-text").textContent = taskText(tk);
+      const tag = taskTag(tk);
+      if (tag) {
+        const p = document.createElement("p"); p.className = "task-tag"; p.textContent = tag;
+        li.querySelector("div").appendChild(p);
+      }
+      ul.appendChild(li);
+    });
+  }
+
+  function formatEventDate(iso) {
+    if (!iso) return "—";
+    try {
+      const d = new Date(iso + "T12:00:00");
+      const locale = lang === "en" ? "en-US" : "es-GT";
+      return d.toLocaleDateString(locale, { day: "numeric", month: "short" });
+    } catch (_) { return iso; }
+  }
+
+  function renderCalendarView() {
+    const list = document.getElementById("eventList");
+    const empty = document.getElementById("calEmpty");
+    if (!list) return;
+    const sorted = [...events].sort((a, b) => {
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return a.date.localeCompare(b.date);
+    });
+    list.innerHTML = "";
+    if (!sorted.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    sorted.forEach(ev => {
+      const li = document.createElement("li");
+      li.className = "event-item";
+      li.innerHTML =
+        '<span class="dot ' + (ev.color || "green") + '"></span>' +
+        '<span class="ev-title"></span><span class="ev-date"></span>' +
+        '<button type="button" class="ft-del">' + escapeHtml(t("delete")) + '</button>';
+      li.querySelector(".ev-title").textContent = eventTitle(ev);
+      li.querySelector(".ev-date").textContent = formatEventDate(ev.date);
+      li.querySelector(".ft-del").addEventListener("click", async () => {
+        const name = eventTitle(ev);
+        const ok = await askConfirm(t("confirmDeleteEventBody").replace("{name}", "<strong>" + escapeHtml(name) + "</strong>"));
+        if (!ok) return;
+        events = events.filter(x => x.id !== ev.id);
+        saveJSON(EVENTS_KEY, events); renderCalendarView(); syncDeskSchedule(); toast(t("toastDeleted"));
+      });
+      list.appendChild(li);
+    });
+  }
+
+  function syncDeskSchedule() {
+    const ul = document.querySelector(".desk-chrome .schedule-list");
+    if (!ul) return;
+    ul.innerHTML = "";
+    [...events].sort((a, b) => {
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return a.date.localeCompare(b.date);
+    }).slice(0, 5).forEach(ev => {
+      const li = document.createElement("li");
+      li.className = "schedule-item";
+      li.innerHTML = '<span class="dot ' + (ev.color || "green") + '"></span><span class="sched-text"></span><span class="sched-date"></span>';
+      li.querySelector(".sched-text").textContent = eventTitle(ev);
+      li.querySelector(".sched-date").textContent = formatEventDate(ev.date);
+      ul.appendChild(li);
+    });
+  }
+
+  function computeStreak() {
+    const sess = getSessions();
+    const days = new Set(sess.map(s => (s.at || "").slice(0, 10)).filter(Boolean));
+    if (!days.size) return 0;
+    let streak = 0;
+    const d = new Date();
+    for (;;) {
+      const key = d.toISOString().slice(0, 10);
+      if (days.has(key)) { streak++; d.setDate(d.getDate() - 1); }
+      else {
+        if (streak === 0) {
+          d.setDate(d.getDate() - 1);
+          const y = d.toISOString().slice(0, 10);
+          if (days.has(y)) { streak = 1; d.setDate(d.getDate() - 1); continue; }
+        }
+        break;
+      }
+      if (streak > 400) break;
+    }
+    return streak;
+  }
+
+  function drawStatsChart() {
+    const svg = document.getElementById("statsChart");
+    const xLabels = document.getElementById("statsChartX");
+    if (!svg || !xLabels) return;
+    const src = document.getElementById("wordsChart");
+    if (src) svg.innerHTML = src.innerHTML;
+    const chartX = document.getElementById("chartX");
+    xLabels.innerHTML = chartX ? chartX.innerHTML : "";
+  }
+
+  function renderStatsView() {
+    const weeklyEl = document.getElementById("statsWeekly");
+    if (!weeklyEl) return;
+    weeklyEl.textContent = formatNum(weeklyWords);
+    document.getElementById("statsWeeklyMeta").textContent = formatNum(weeklyWords) + " / " + formatNum(weeklyGoal) + " " + t("wordsUnit");
+    document.getElementById("statsToday").textContent = formatNum(todayWords);
+    document.getElementById("statsTodayMeta").textContent = formatNum(todayWords) + " / " + formatNum(dailyGoal) + " " + t("wordsUnit");
+    const streak = computeStreak();
+    const streakEl = document.getElementById("statsStreak");
+    const deskStreak = document.getElementById("streakDays");
+    streakEl.textContent = String(streak || (deskStreak ? deskStreak.textContent : "0"));
+    if (deskStreak && streak > 0) deskStreak.textContent = String(streak);
+    const sess = getSessions();
+    document.getElementById("statsSessions").textContent = String(sess.length);
+    drawStatsChart();
+    const list = document.getElementById("statsSessionList");
+    const empty = document.getElementById("statsSessionsEmpty");
+    list.innerHTML = "";
+    if (!sess.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    sess.slice(0, 12).forEach(s => {
+      const li = document.createElement("li");
+      li.className = "event-item";
+      const when = (s.at || "").slice(0, 16).replace("T", " ");
+      li.innerHTML = '<span class="dot green"></span><span class="ev-title"></span><span class="ev-date"></span>';
+      li.querySelector(".ev-title").textContent = (s.manuscript || "—") + " · " + (s.pen || "—") + " · " + (s.words != null ? formatNum(s.words) + " " + t("pal") : "—");
+      li.querySelector(".ev-date").textContent = when;
+      list.appendChild(li);
+    });
+  }
+
+  function renderPromptsView() {
+    const list = document.getElementById("promptList");
+    const empty = document.getElementById("promptsEmpty");
+    if (!list) return;
+    list.innerHTML = "";
+    if (!prompts.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    prompts.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "prompt-item";
+      li.innerHTML = '<p class="pr-text"></p><div class="prompt-actions"></div>';
+      li.querySelector(".pr-text").textContent = promptText(p);
+      const actions = li.querySelector(".prompt-actions");
+      const copyBtn = document.createElement("button");
+      copyBtn.type = "button"; copyBtn.className = "btn-sm"; copyBtn.textContent = t("copyPrompt");
+      copyBtn.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(promptText(p)); } catch (_) {}
+        toast(t("toastCopied"));
+      });
+      const useBtn = document.createElement("button");
+      useBtn.type = "button"; useBtn.className = "btn-sm primary"; useBtn.textContent = t("usePrompt");
+      useBtn.addEventListener("click", () => {
+        const ta = document.getElementById("soloDraft");
+        const text = promptText(p);
+        if (ta) { ta.value = (ta.value ? ta.value + "\n\n" : "") + text; if (typeof saveDraftNow === "function") saveDraftNow(); }
+        showView("desk");
+        if (typeof enterSoloEscribir === "function") enterSoloEscribir();
+        toast(t("toastPromptUsed"));
+      });
+      const delBtn = document.createElement("button");
+      delBtn.type = "button"; delBtn.className = "btn-sm danger"; delBtn.textContent = t("delete");
+      delBtn.addEventListener("click", async () => {
+        const full = promptText(p);
+        const name = full.slice(0, 60) + (full.length > 60 ? "…" : "");
+        const ok = await askConfirm(t("confirmDeletePromptBody").replace("{name}", "<strong>" + escapeHtml(name) + "</strong>"));
+        if (!ok) return;
+        prompts = prompts.filter(x => x.id !== p.id);
+        saveJSON(PROMPTS_KEY, prompts); renderPromptsView(); toast(t("toastDeleted"));
+      });
+      actions.appendChild(copyBtn); actions.appendChild(useBtn); actions.appendChild(delBtn);
+      list.appendChild(li);
+    });
+  }
+
+  function pickMuseSpark() {
+    const pool = MUSE_POOL[lang] || MUSE_POOL.es;
+    let next = pool[Math.floor(Math.random() * pool.length)];
+    if (pool.length > 1 && next === currentMuseSpark) next = pool[(pool.indexOf(next) + 1) % pool.length];
+    currentMuseSpark = next;
+    const el = document.getElementById("museQuote");
+    if (el) el.textContent = next;
+  }
+
+  function renderMuseView() {
+    if (!currentMuseSpark) pickMuseSpark();
+    else {
+      const el = document.getElementById("museQuote");
+      if (el) el.textContent = currentMuseSpark;
+    }
+    const list = document.getElementById("sparkList");
+    const empty = document.getElementById("sparksEmpty");
+    list.innerHTML = "";
+    if (!sparks.length) { if (empty) empty.hidden = false; return; }
+    if (empty) empty.hidden = true;
+    sparks.forEach(sp => {
+      const li = document.createElement("li");
+      li.className = "spark-item";
+      li.innerHTML = '<p class="sp-text"></p><div class="spark-actions"></div>';
+      li.querySelector(".sp-text").textContent = sp.text || "";
+      const del = document.createElement("button");
+      del.type = "button"; del.className = "btn-sm danger"; del.textContent = t("delete");
+      del.addEventListener("click", async () => {
+        const full = sp.text || "";
+        const name = full.slice(0, 60) + (full.length > 60 ? "…" : "");
+        const ok = await askConfirm(t("confirmDeleteSparkBody").replace("{name}", "<strong>" + escapeHtml(name) + "</strong>"));
+        if (!ok) return;
+        sparks = sparks.filter(x => x.id !== sp.id);
+        saveJSON(SPARKS_KEY, sparks); renderMuseView(); toast(t("toastDeleted"));
+      });
+      li.querySelector(".spark-actions").appendChild(del);
+      list.appendChild(li);
+    });
+  }
+
+  document.getElementById("msAddBtn")?.addEventListener("click", () => {
+    const title = (document.getElementById("msNewTitle").value || "").trim();
+    if (!title) { toast(t("toastNeedTitle")); return; }
+    const status = document.getElementById("msNewStatus").value || "draft";
+    const m = { id: uid(), title, status, progress: 0, sub: "", pen: penState.active || "" };
+    manuscripts.push(m);
+    saveJSON(MS_KEY, manuscripts);
+    document.getElementById("msNewTitle").value = "";
+    setActiveManuscript(m.id, true);
+    renderManuscriptsView();
+    fillNovelSelects();
+    toast(t("toastMsActive") + title);
+  });
+  document.getElementById("taskAddBtn")?.addEventListener("click", () => {
+    const text = (document.getElementById("taskNewText").value || "").trim();
+    if (!text) { toast(t("toastNeedTitle")); return; }
+    const tag = (document.getElementById("taskNewTag").value || "").trim();
+    tasks.unshift({ id: uid(), text, tag, done: false });
+    saveJSON(TASKS_KEY, tasks);
+    document.getElementById("taskNewText").value = "";
+    document.getElementById("taskNewTag").value = "";
+    renderTasksView(); syncDeskTasks(); toast(t("toastTaskAdded"));
+  });
+  document.getElementById("eventAddBtn")?.addEventListener("click", () => {
+    const title = (document.getElementById("eventNewTitle").value || "").trim();
+    if (!title) { toast(t("toastNeedTitle")); return; }
+    const date = document.getElementById("eventNewDate").value || "";
+    events.push({ id: uid(), title, date, color: "green" });
+    saveJSON(EVENTS_KEY, events);
+    document.getElementById("eventNewTitle").value = "";
+    renderCalendarView(); syncDeskSchedule(); toast(t("toastEventAdded"));
+  });
+  document.getElementById("promptAddBtn")?.addEventListener("click", () => {
+    const text = (document.getElementById("promptNewText").value || "").trim();
+    if (!text) { toast(t("toastNeedTitle")); return; }
+    prompts.unshift({ id: uid(), text, es: text, en: text });
+    saveJSON(PROMPTS_KEY, prompts);
+    document.getElementById("promptNewText").value = "";
+    renderPromptsView(); toast(t("toastPromptAdded"));
+  });
+  document.getElementById("museRandomBtn")?.addEventListener("click", pickMuseSpark);
+  document.getElementById("museSaveBtn")?.addEventListener("click", () => {
+    if (!currentMuseSpark) pickMuseSpark();
+    sparks.unshift({ id: uid(), text: currentMuseSpark, at: new Date().toISOString() });
+    sparks = sparks.slice(0, 50);
+    saveJSON(SPARKS_KEY, sparks);
+    renderMuseView(); toast(t("toastSparkSaved"));
+  });
+
+  const _renderPensOrig = renderPens;
+  renderPens = function() {
+    _renderPensOrig();
+    if (typeof syncViewPenChips === "function") syncViewPenChips();
+  };
+
   // Init
   savePens(); // persist migrated defaults (Jane/John if old demos)
   applyI18n();
@@ -3558,6 +4570,16 @@
   drawChart();
   renderTimer();
   renderLastSession();
+  syncDeskTasks();
+  syncDeskSchedule();
+  const am = getActiveManuscript();
+  if (am) setActiveManuscript(am.id, true);
+  let startView = "desk";
+  try {
+    const saved = localStorage.getItem(VIEW_KEY);
+    if (saved && VIEW_TITLES[saved]) startView = saved;
+  } catch (_) {}
+  showView(startView);
 })();
 </script>
 </body>

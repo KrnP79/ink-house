@@ -8,7 +8,7 @@ Réplica autocontenida del escritorio Ink House en un solo `index.html`, con UI 
 2. O, desde esta carpeta, sirve los archivos en local:
 
 ```bash
-cd /workspace/folio-es
+cd /workspace/ink-house
 python3 -m http.server 8765
 ```
 
@@ -18,11 +18,13 @@ No hace falta instalar dependencias ni ejecutar un build: CSS y JavaScript van i
 
 ## Qué incluye
 
-- Barra lateral con navegación; **selector de nombres de pluma** debajo de **Escritorio / Desk** (solo elegir)
-- Tema cute + elegante: blush / rosa caramelo / lila — **Claro / Oscuro / Sistema** en Ajustes (el icono de luna del header cicla los tres)
+- **SPA de vistas** en la barra lateral (sin backend): Escritorio, Manuscritos, Tareas, Calendario, Estadísticas, Disparadores, Musa; **Ajustes** sigue siendo modal
+- Selector de **nombres de pluma** debajo de Escritorio (solo elegir; no cambia de vista)
+- Tema cute + elegante: blush / rosa caramelo / lila — **Claro / Oscuro / Sistema** en Ajustes
 - Franja **Hoy escribo**, ciclo de escritura, temporizador, **Solo escribir**, **Cerrar sesión**
-- Tarjetas de manuscrito, plazos, palabras semanales, tareas, continuidad
-- **Exportar datos** (JSON y Markdown) y **Reporte por novela** (Markdown descargable)
+- Persistencia local de tareas, eventos, prompts, chispas y manuscritos (`folio-es-*` / `ink-house-view`)
+- Confirmación in-app (Cancelar / Eliminar) antes de borrar pluma, tarea, evento, prompt, chispa o manuscrito
+- **Exportar datos** (JSON y Markdown) y **Reporte por novela**
 - **Idioma** Español | English desde Ajustes (un solo HTML)
 
 ## Nombres de pluma
@@ -57,5 +59,11 @@ En **Ajustes → Idioma / Language**: Español o English (`folio-es-lang`).
 | `folio-es-sessions` | Historial de sesiones |
 | `folio-es-drafts` | Borradores Solo escribir |
 | `folio-es-words-today` / `folio-es-words-day` / `folio-es-words-week` | Impulso diario/semanal |
+| `folio-es-manuscripts` / `folio-es-active-ms` | Lista de manuscritos + activo |
+| `folio-es-tasks` | Tareas (añadir / completar / eliminar) |
+| `folio-es-events` | Agenda / calendario |
+| `folio-es-prompts` | Banco de disparadores |
+| `folio-es-sparks` | Chispas guardadas (Musa) |
+| `ink-house-view` | Última vista SPA abierta |
 
 **Solo escribir** oculta el escritorio y deja un lienzo con manuscrito, pluma, borrador, temporizador y ánimo. **Cerrar sesión** registra palabras, ánimo, pluma, manuscrito y duración en `folio-es-sessions`.
