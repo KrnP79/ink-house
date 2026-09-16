@@ -1,0 +1,3564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="docTitle">Ink House — El escritorio del escritor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Cute elegant blush / rose / lilac writer desk */
+    --bg: #FFF5F7;
+    --bg-sidebar: #FFF0F5;
+    --card: #FFFBFC;
+    --ink: #4A3F4A;
+    --ink-soft: #6B5F6B;
+    --muted: #9A8F9A;
+    --border: #F0D8E0;
+    --border-soft: #F7E8EE;
+    --green: #E891A8;          /* candy pink / soft rose accent */
+    --green-mid: #D97A96;
+    --green-soft: #FCE8EE;
+    --green-fill: rgba(232, 145, 168, 0.22);
+    --green-line: #E891A8;
+    --sage-pill: #FCE4EC;      /* soft pink pill (active nav) */
+    --brown-bar: #C4B5E0;      /* lilac secondary */
+    --cream-btn: #F8E8EE;
+    --lilac: #C4B5E0;
+    --rose: #E891A8;
+    --rose-soft: #F4A5B8;
+    --coral: #F0A090;
+    --mint-pill-bg: #D8F0E4;
+    --mint-pill-fg: #3D7A5C;
+    --peach-pill-bg: #FFE4D4;
+    --peach-pill-fg: #A06648;
+    --lav-pill-bg: #E8E0F5;
+    --lav-pill-fg: #6B5A9A;
+    --grad-progress: linear-gradient(90deg, #E891A8, #C4B5E0);
+    --danger: #C97B7B;
+    --radius: 14px;
+    --shadow: 0 1px 3px rgba(74, 63, 74, 0.05);
+    --sidebar-w: 248px;
+  }
+
+  [data-theme="dark"] {
+    --bg: #2A2528;
+    --bg-sidebar: #221E22;
+    --card: #322C32;
+    --ink: #F5EAF0;
+    --ink-soft: #C8B8C4;
+    --muted: #9A8A96;
+    --border: #4A3F48;
+    --border-soft: #3A3238;
+    --green: #F4A5B8;
+    --green-mid: #E891A8;
+    --green-soft: #3D3038;
+    --green-fill: rgba(244, 165, 184, 0.22);
+    --green-line: #F4A5B8;
+    --sage-pill: #3D3038;
+    --brown-bar: #C4B5E0;
+    --cream-btn: #3A3238;
+    --lilac: #C4B5E0;
+    --rose: #F4A5B8;
+    --rose-soft: #E891A8;
+    --coral: #E8A898;
+    --mint-pill-bg: #2A3D34;
+    --mint-pill-fg: #8FCBB0;
+    --peach-pill-bg: #3D322C;
+    --peach-pill-fg: #E8B898;
+    --lav-pill-bg: #342E42;
+    --lav-pill-fg: #C4B5E0;
+    --grad-progress: linear-gradient(90deg, #F4A5B8, #C4B5E0);
+    --danger: #D49090;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.45;
+  }
+  .serif { font-family: "Source Serif 4", Georgia, serif; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; border: none; background: none; }
+  a { color: inherit; text-decoration: none; }
+
+  /* —— Layout —— */
+  .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    min-height: 100vh;
+  }
+
+  /* —— Sidebar —— */
+  .sidebar {
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 1.35rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0 0.35rem;
+  }
+  .brand-icon {
+    width: 28px; height: 28px;
+    background: var(--green);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .brand h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .brand p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .author-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.7rem 0.85rem;
+    box-shadow: var(--shadow);
+  }
+  .author-card .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .author-card input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+  .nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav a:hover { background: rgba(232,145,168,0.12); color: var(--ink); }
+  .nav a.active {
+    background: var(--sage-pill);
+    color: var(--green);
+    font-weight: 500;
+  }
+  .nav a svg { width: 18px; height: 18px; opacity: 0.85; flex-shrink: 0; }
+
+  .quick-note {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .quick-note .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
+  }
+  .quick-note-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .quick-note input {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.82rem;
+    outline: none;
+  }
+  .quick-note input:focus { border-color: var(--green-mid); }
+  .quick-note .send {
+    width: 36px; height: 36px;
+    background: var(--green);
+    color: #fff;
+    border-radius: 9px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .quick-note .send:hover { background: var(--green-mid); }
+
+  /* —— Main —— */
+  .main {
+    padding: 1.1rem 1.6rem 2.5rem;
+    max-width: 1180px;
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .topbar-left svg { color: var(--green); }
+  .search-pill {
+    justify-self: center;
+    width: min(420px, 100%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    box-shadow: var(--shadow);
+  }
+  .search-pill input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .search-pill input::placeholder { color: var(--muted); }
+  .kbd {
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.15rem 0.4rem;
+    font-family: inherit;
+  }
+  .theme-btn {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    display: grid; place-items: center;
+    color: var(--ink-soft);
+  }
+  .theme-btn:hover { color: var(--green); }
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 0.9rem;
+  }
+  .hero .greeting {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+  .hero .quote {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    max-width: 28ch;
+  }
+  .hero .date {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+    padding-bottom: 0.35rem;
+  }
+
+  .banner {
+    background: #FCE8EE;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.15rem;
+    line-height: 1.4;
+    border: 1px solid var(--border);
+  }
+  [data-theme="dark"] .banner { background: #3D3038; }
+
+  /* —— Cards grid —— */
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+  .card-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+  }
+  .card-label svg { width: 14px; height: 14px; color: var(--green); opacity: 0.9; }
+  .card-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+    line-height: 1.25;
+  }
+  .card-title.green { color: var(--green); }
+  .card-big {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .card-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.35rem;
+  }
+  .progress {
+    height: 6px;
+    background: var(--border-soft);
+    border-radius: 99px;
+    overflow: hidden;
+    margin: 0.5rem 0 0.35rem;
+  }
+  .progress > span {
+    display: block;
+    height: 100%;
+    border-radius: 99px;
+    background: var(--grad-progress);
+  }
+  .progress.brown > span { background: var(--grad-progress); }
+  .countdown-card { text-align: center; }
+  .countdown-card .card-title { margin-bottom: 0.25rem; }
+  .countdown-card .card-big { font-size: 2.6rem; margin: 0.15rem 0; }
+  .countdown-card .card-meta { margin-top: 0; }
+
+  /* streak + momentum strip */
+  .improv-strip {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+  .streak-num { color: var(--green); }
+  .nudge {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    background: var(--sage-pill);
+    border-radius: 8px;
+    padding: 0.4rem 0.65rem;
+    margin-top: 0.55rem;
+  }
+  .mood-picker {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .mood-btn {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.3rem;
+    font-size: 0.78rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .mood-btn:hover { border-color: var(--green-mid); }
+  .mood-btn.active {
+    background: var(--sage-pill);
+    border-color: var(--green);
+    color: var(--green);
+    font-weight: 500;
+  }
+  .mood-btn span { display: block; font-size: 1.1rem; margin-bottom: 0.1rem; }
+
+  /* chart */
+  .chart-card { margin-bottom: 0.85rem; }
+  .chart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .chart-head a {
+    font-size: 0.8rem;
+    color: var(--green);
+    font-weight: 500;
+  }
+  .chart-head a:hover { text-decoration: underline; }
+  .chart-wrap { width: 100%; height: 200px; position: relative; }
+  .chart-wrap svg { width: 100%; height: 100%; display: block; }
+  .chart-y {
+    position: absolute;
+    left: 0; top: 0; bottom: 22px;
+    width: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .chart-x {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 42px;
+    margin-top: 0.15rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  /* third row */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 0.95fr;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+  .section-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+    font-family: "Source Serif 4", Georgia, serif;
+  }
+
+  .task-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .task-item {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+  }
+  .check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--green);
+    background: var(--green);
+    color: #fff;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check svg { width: 12px; height: 12px; }
+  .task-text { font-size: 0.9rem; line-height: 1.35; }
+  .task-tag {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+  .add-task {
+    margin-top: 0.9rem;
+    width: 100%;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 0.55rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: transparent;
+  }
+  .add-task:hover { border-color: var(--green-mid); color: var(--green); }
+
+  .project-list { display: flex; flex-direction: column; gap: 0.85rem; }
+  .project {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 0.5rem;
+    align-items: start;
+  }
+  .project-name {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .project-sub { font-size: 0.75rem; color: var(--muted); grid-column: 1; }
+  .pill {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--mint-pill-bg);
+    color: var(--mint-pill-fg);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pill.muted,
+  .pill.revising {
+    background: var(--peach-pill-bg);
+    color: var(--peach-pill-fg);
+  }
+  .pill.tan,
+  .pill.outlining {
+    background: var(--lav-pill-bg);
+    color: var(--lav-pill-fg);
+  }
+  .project .progress { grid-column: 1 / -1; margin-top: 0.35rem; }
+  .proxima {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-soft);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .proxima strong {
+    display: block;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  /* Focus timer */
+  .focus-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .timer-ring {
+    width: 150px; height: 150px;
+    position: relative;
+    margin: 0.4rem 0 0.9rem;
+  }
+  .timer-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .timer-ring .track { fill: none; stroke: var(--border-soft); stroke-width: 6; }
+  .timer-ring .prog {
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 408;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.4s linear;
+  }
+  .timer-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .timer-center .time {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .timer-center .mode {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 0.15rem;
+  }
+  .focus-ms {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.82rem;
+    background: var(--card);
+    margin-bottom: 0.65rem;
+    outline: none;
+  }
+  .focus-controls {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+    align-items: center;
+  }
+  .btn-primary {
+    flex: 1;
+    background: var(--green);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+  .btn-primary:hover { background: var(--green-mid); }
+  .btn-secondary {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+  .btn-secondary:hover { border-color: var(--green-mid); color: var(--green); }
+  .btn-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: grid; place-items: center;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .btn-icon:hover { color: var(--green); border-color: var(--green-mid); }
+  .log-session {
+    margin-top: 0.65rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .log-session:hover { color: var(--green); text-decoration: underline; }
+
+  /* bottom row */
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 0.85rem;
+  }
+  .continuity-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .continuity-toolbar input[type="search"] {
+    flex: 1;
+    min-width: 140px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.82rem;
+    background: var(--bg);
+    outline: none;
+  }
+  .continuity-toolbar input:focus { border-color: var(--green-mid); }
+  .btn-sm {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.78rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .btn-sm:hover { border-color: var(--green-mid); color: var(--green); }
+  .btn-sm.primary {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .btn-sm.primary:hover { background: var(--green-mid); }
+
+  .notes-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .notes-list li {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    padding-left: 0.85rem;
+    position: relative;
+  }
+  .notes-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .notes-list .proj {
+    font-weight: 600;
+    color: var(--green);
+    margin-right: 0.25rem;
+  }
+  .notes-list .body {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--ink);
+  }
+  .notes-list li.hidden { display: none; }
+
+  .add-note-row {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .add-note-row select,
+  .add-note-row input {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.82rem;
+    background: var(--bg);
+    outline: none;
+  }
+  .add-note-row select { max-width: 160px; }
+  .add-note-row input { flex: 1; min-width: 140px; }
+
+  .schedule-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .schedule-item {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    margin-top: 0.4rem;
+    flex-shrink: 0;
+  }
+  .dot.red { background: var(--danger); }
+  .dot.green { background: var(--green); }
+  .dot.amber { background: #c4a574; }
+  .sched-text { font-size: 0.9rem; flex: 1; }
+  .sched-date {
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .view-cal {
+    margin-top: 1.1rem;
+    width: 100%;
+    background: var(--cream-btn);
+    border-radius: 10px;
+    padding: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .view-cal:hover { color: var(--green); }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(74, 63, 74, 0.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    max-width: 480px;
+    max-height: min(90vh, 640px);
+    overflow-y: auto;
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .modal h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.65rem;
+  }
+  .modal p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--green);
+    color: #fff;
+    padding: 0.7rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 200;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+
+  /* —— Pen names (subsection under Desk) —— */
+  .nav-pen-sub {
+    margin: 0.05rem 0 0.45rem 0.85rem;
+    padding: 0.4rem 0.5rem 0.55rem;
+    border-left: 2px solid var(--border);
+  }
+  .nav-pen-sub .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    padding-left: 0.15rem;
+  }
+  .pen-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 0.25rem;
+    max-height: 140px;
+    overflow-y: auto;
+  }
+  .pen-list button.pen-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.4rem 0.55rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+  .pen-list button.pen-item:hover { background: rgba(232,145,168,0.1); color: var(--ink); }
+  .pen-list button.pen-item.active {
+    background: var(--sage-pill);
+    color: var(--green-mid);
+    font-weight: 500;
+  }
+  .pen-list .pen-check { opacity: 0; font-size: 0.75rem; color: var(--rose); }
+  .pen-list button.pen-item.active .pen-check { opacity: 1; }
+  .pen-empty-hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.4;
+    padding: 0.15rem 0.1rem 0.1rem;
+  }
+  .pen-empty-hint button {
+    color: var(--rose);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: inherit;
+    padding: 0;
+  }
+  .pen-empty-hint button:hover { color: var(--green-mid); }
+
+  /* Settings pen manage */
+  .settings-section {
+    margin: 1.1rem 0 0.85rem;
+    padding-top: 0.95rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .settings-section h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+  }
+  .settings-section .hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 0.65rem;
+    line-height: 1.4;
+  }
+  .lang-toggle {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .lang-toggle button {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.82rem;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .lang-toggle button.active {
+    background: var(--sage-pill);
+    border-color: var(--rose);
+    color: var(--green-mid);
+  }
+  .settings-pen-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  .settings-pen-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.4rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg);
+  }
+  .settings-pen-row input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.85rem;
+    padding: 0.2rem 0.25rem;
+  }
+  .settings-pen-row input:focus {
+    background: var(--card);
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--rose);
+  }
+  .settings-pen-row .pen-actions {
+    display: flex;
+    gap: 0.2rem;
+    flex-shrink: 0;
+  }
+  .settings-pen-row .btn-pen-act {
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 0.28rem 0.45rem;
+    font-size: 0.68rem;
+    background: var(--cream-btn);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .settings-pen-row .btn-pen-act:hover { border-color: var(--rose); color: var(--green-mid); }
+  .settings-pen-row .btn-pen-act.danger:hover { border-color: var(--danger); color: var(--danger); }
+  .settings-pen-row.is-active {
+    border-color: var(--rose);
+    background: var(--sage-pill);
+  }
+  .settings-pen-add {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+  }
+  .settings-pen-add input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.82rem;
+    background: var(--bg);
+    outline: none;
+  }
+  .settings-pen-add input:focus { border-color: var(--rose); }
+  .settings-pen-add .btn-add {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+    background: var(--cream-btn);
+    color: var(--ink-soft);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .settings-pen-add .btn-add:hover { border-color: var(--rose); color: var(--green-mid); }
+
+
+  .settings-export-row, .settings-report-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin-top: 0.35rem;
+  }
+  .settings-export-row .btn-add,
+  .settings-report-row .btn-add {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+    background: var(--cream-btn);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .settings-export-row .btn-add:hover,
+  .settings-report-row .btn-add:hover { border-color: var(--rose); color: var(--green-mid); }
+  .settings-report-row select {
+    flex: 1;
+    min-width: 140px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.82rem;
+    background: var(--bg);
+    outline: none;
+  }
+  .theme-toggle {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .theme-toggle button {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 0.45rem;
+    font-size: 0.78rem;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .theme-toggle button.active {
+    background: var(--sage-pill);
+    border-color: var(--rose);
+    color: var(--green-mid);
+  }
+  .project-report-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .project-report-row select {
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+    background: var(--bg);
+  }
+  .project-report-row .btn-sm {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.78rem;
+    background: var(--cream-btn);
+    color: var(--ink-soft);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .project-report-row .btn-sm:hover { border-color: var(--rose); color: var(--green-mid); }
+
+  /* —— Hoy escribo focus strip —— */
+  .hoy-strip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.85rem;
+    box-shadow: var(--shadow);
+  }
+  .hoy-strip .hoy-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .hoy-strip .hoy-ms {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .hoy-strip .hoy-sep {
+    color: var(--border);
+    font-weight: 300;
+  }
+  .hoy-strip .hoy-progress {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 160px;
+  }
+  .hoy-strip .hoy-progress .mini-bar {
+    flex: 1;
+    max-width: 120px;
+    height: 6px;
+    background: var(--border-soft);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .hoy-strip .hoy-progress .mini-bar > span {
+    display: block;
+    height: 100%;
+    background: var(--grad-progress);
+    border-radius: 99px;
+  }
+  .hoy-strip .btn-hoy {
+    background: var(--green);
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.88rem;
+    font-weight: 560;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 2px 8px rgba(232,145,168,0.35);
+  }
+  .hoy-strip .btn-hoy:hover { background: var(--green-mid); }
+
+  /* —— Process step indicator —— */
+  .process-steps {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .process-steps .step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .process-steps .step .num {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--border-soft);
+    color: var(--ink-soft);
+    display: grid; place-items: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+  .process-steps .step.active .num {
+    background: var(--rose);
+    color: #fff;
+  }
+  .process-steps .step.active { color: var(--green-mid); }
+  .process-steps .step-arrow {
+    color: var(--border);
+    font-size: 0.7rem;
+    margin: 0 0.1rem;
+  }
+
+  /* —— Session words log —— */
+  .session-log {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--border-soft);
+    text-align: left;
+  }
+  .session-log .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .session-log-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .session-log-row input[type="number"] {
+    width: 88px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.85rem;
+    background: var(--bg);
+    outline: none;
+  }
+  .session-log-row input:focus { border-color: var(--rose); }
+  .session-log-row .btn-save-session {
+    flex: 1;
+    background: var(--cream-btn);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .session-log-row .btn-save-session:hover {
+    border-color: var(--rose);
+    color: var(--green-mid);
+  }
+
+  .greeting .pen-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--rose);
+    font-weight: 500;
+    margin-left: 0.35rem;
+  }
+
+
+  /* —— Última sesión —— */
+  .last-session {
+    margin-top: 0.65rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: left;
+    width: 100%;
+    line-height: 1.35;
+  }
+  .last-session strong {
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  /* —— Solo escribir / Cerrar sesión buttons —— */
+  .btn-solo {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8rem;
+    background: var(--cream-btn);
+    color: var(--ink-soft);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .btn-solo:hover { border-color: var(--rose); color: var(--green-mid); }
+  .btn-solo.prominent {
+    background: linear-gradient(135deg, #FCE8EE, #EDE4F5);
+    border-color: var(--rose-soft);
+    color: var(--green-mid);
+    font-weight: 560;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 1px 4px rgba(232,145,168,0.2);
+  }
+  .btn-solo.prominent:hover { background: var(--sage-pill); }
+  .btn-cerrar-sesion {
+    width: 100%;
+    margin-top: 0.55rem;
+    background: var(--green);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .btn-cerrar-sesion:hover { background: var(--green-mid); }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .hoy-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .hoy-strip .btn-hoy { margin-left: 0; }
+
+  /* —— Solo escribir surface —— */
+  .solo-surface {
+    display: none;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0.5rem 0 2rem;
+  }
+  body.solo-escribir .solo-surface { display: block; }
+  body.solo-escribir .desk-chrome { display: none !important; }
+  body.solo-escribir .sidebar { display: none !important; }
+  body.solo-escribir .app {
+    grid-template-columns: 1fr;
+    background: linear-gradient(180deg, #FFF8F5 0%, #FFF5F7 40%, #F8F0F8 100%);
+    min-height: 100vh;
+  }
+  [data-theme="dark"] body.solo-escribir .app,
+  body.solo-escribir[data-theme="dark"] .app {
+    background: linear-gradient(180deg, #2A2528 0%, #32282E 100%);
+  }
+  /* html has data-theme */
+  html[data-theme="dark"] body.solo-escribir .app {
+    background: linear-gradient(180deg, #2A2528 0%, #32282E 100%);
+  }
+  body.solo-escribir .main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem 2.5rem;
+    width: 100%;
+  }
+  body.solo-escribir {
+    background: #FFF8F5;
+  }
+  html[data-theme="dark"] body.solo-escribir {
+    background: #2A2528;
+  }
+
+  .solo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .solo-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .solo-meta .solo-ms {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .solo-meta .solo-pen {
+    font-size: 0.85rem;
+    color: var(--rose);
+    font-weight: 500;
+  }
+  .solo-bar-actions {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-salir-foco {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .btn-salir-foco:hover { border-color: var(--rose); color: var(--green-mid); }
+  .solo-hint {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .solo-draft {
+    width: 100%;
+    min-height: 42vh;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.35rem 1.5rem;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.12rem;
+    line-height: 1.7;
+    background: #FFFBFC;
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+  }
+  html[data-theme="dark"] .solo-draft {
+    background: var(--card);
+  }
+  .solo-draft:focus {
+    border-color: var(--rose-soft);
+    box-shadow: 0 0 0 3px rgba(232,145,168,0.18);
+  }
+  .solo-draft::placeholder { color: var(--muted); font-style: italic; }
+
+  .solo-tools {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .solo-tools { grid-template-columns: 1fr; }
+  }
+  .solo-timer-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    min-width: 200px;
+  }
+  .solo-timer-box .solo-time {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .solo-timer-box .solo-mode {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.65rem;
+  }
+  .solo-timer-box .focus-controls { margin-top: 0.35rem; }
+  .solo-side-tools {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+  .solo-side-tools .card-label { margin-bottom: 0.45rem; }
+  .solo-side-tools .mood-picker { margin-bottom: 0.85rem; }
+  .solo-side-tools .session-log { margin-top: 0; padding-top: 0; border-top: none; }
+  .solo-draft-status {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  .author-card { display: none; } /* replaced by pen-card */
+
+  @media (max-width: 1100px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .improv-strip { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-bottom { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { flex-direction: row; flex-wrap: wrap; }
+    .hero { flex-direction: column; align-items: flex-start; }
+    .topbar { grid-template-columns: 1fr auto; }
+    .search-pill { grid-column: 1 / -1; justify-self: stretch; width: 100%; order: 3; }
+    .hoy-strip .hoy-actions { margin-left: 0; width: 100%; }
+    .hoy-strip .btn-hoy { width: 100%; justify-content: center; }
+    .hoy-strip .btn-solo.prominent { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div>
+        <h1>Ink House</h1>
+        <p data-i18n="tagline">El escritorio del escritor</p>
+      </div>
+    </div>
+
+    <nav class="nav" data-i18n-aria="mainNav" aria-label="Principal">
+      <a href="#" class="active" data-nav="desk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span data-i18n="navDesk">Escritorio</span>
+      </a>
+      <div class="nav-pen-sub" id="penCard">
+        <div class="label" data-i18n="penNameLabel">Nombre de pluma</div>
+        <ul class="pen-list" id="penList" role="listbox" data-i18n-aria="choosePen" aria-label="Elegir nombre de pluma"></ul>
+        <p class="pen-empty-hint" id="penEmptyHint" hidden>
+          <span data-i18n="penEmptyHint">Añade seudónimos en</span>
+          <button type="button" id="penOpenSettings" data-i18n="settings">Ajustes</button>
+        </p>
+      </div>
+      <a href="#" data-nav="ms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span data-i18n="navMs">Manuscritos</span>
+      </a>
+      <a href="#" data-nav="tasks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span data-i18n="navTasks">Tareas</span>
+      </a>
+      <a href="#" data-nav="cal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span data-i18n="navCal">Calendario</span>
+      </a>
+      <a href="#" data-nav="stats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span data-i18n="navStats">Estadísticas</span>
+      </a>
+      <a href="#" data-nav="prompts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+        <span data-i18n="navPrompts">Disparadores</span>
+      </a>
+      <a href="#" data-nav="muse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
+        <span data-i18n="navMuse">Musa</span>
+      </a>
+      <a href="#" id="openSettings" data-nav="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <span data-i18n="settings">Ajustes</span>
+      </a>
+    </nav>
+
+    <div class="quick-note">
+      <div class="label" data-i18n="quickNote">Nota rápida</div>
+      <div class="quick-note-row">
+        <input type="text" id="quickNote" data-i18n-placeholder="quickNotePh" placeholder="Anota algo…" />
+        <button type="button" class="send" id="quickNoteBtn" data-i18n-aria="saveNote" aria-label="Guardar nota">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span data-i18n="navDesk">Escritorio</span>
+      </div>
+      <div class="search-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" data-i18n-placeholder="searchPh" placeholder="Buscar manuscritos, tareas, disparadores" id="globalSearch" />
+        <kbd class="kbd">⌘K</kbd>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" class="btn-solo" id="btnSoloHeader" data-i18n-title="soloModeTitle" title="Modo Solo escribir">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span data-i18n="soloWrite">Solo escribir</span>
+        </button>
+        <button type="button" class="theme-btn" id="themeToggle" data-i18n-aria="darkMode" aria-label="Modo oscuro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="desk-chrome">
+    <div class="hero">
+      <div>
+        <p class="greeting" id="greeting">Buenas noches<span class="pen-badge" id="greetingPen"></span></p>
+        <h2 class="quote" data-i18n="quote">La casa se aquieta. El borrador también puede.</h2>
+      </div>
+      <p class="date" id="heroDate">Miércoles · 16 de septiembre</p>
+    </div>
+
+    <div class="hoy-strip" id="hoyStrip">
+      <span class="hoy-label" data-i18n="hoyEscribo">Hoy escribo</span>
+      <span class="hoy-ms" id="hoyManuscript" data-sample="p1">Al norte del río</span>
+      <span class="hoy-sep" aria-hidden="true">·</span>
+      <div class="hoy-progress">
+        <span id="hoyWordsLabel">278 / 500</span>
+        <div class="mini-bar" aria-hidden="true"><span id="hoyMiniBar" style="width:55.6%"></span></div>
+      </div>
+      <div class="hoy-actions">
+        <button type="button" class="btn-solo prominent" id="btnSoloHoy" data-i18n-title="soloModeTitle" title="Modo Solo escribir">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span data-i18n="soloWrite">Solo escribir</span>
+        </button>
+        <button type="button" class="btn-hoy" id="btnEmpezar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span data-i18n="startWriting">Empezar a escribir</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="banner">
+      <span data-i18n="banner">Los ejemplos de arranque están en este escritorio para que las gráficas tengan algo que mostrar. Reemplázalos con tu trabajo, o restablece un escritorio en blanco en Ajustes.</span>
+    </div>
+
+    <!-- KPI row -->
+    <div class="grid-4">
+      <article class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span data-i18n="currentMs">Manuscrito actual</span>
+        </div>
+        <h3 class="card-title" data-sample="p1">Al norte del río</h3>
+        <div class="progress" style="margin-top:0.7rem"><span style="width:32%"></span></div>
+        <p class="card-meta" data-i18n="chapterProgress">Capítulo 8 / 28 · 32%</p>
+      </article>
+
+      <article class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span data-i18n="deadlineTrack">Seguimiento de plazos</span>
+        </div>
+        <h3 class="card-title green" data-i18n="deadlineDate">25 de septiembre de 2026</h3>
+        <p class="card-meta"><span data-sample="p2">A poca distancia</span> <span data-i18n="deadlineDays">— 9 días</span></p>
+      </article>
+
+      <article class="card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span data-i18n="weeklyCount">Conteo semanal de palabras</span>
+        </div>
+        <p class="card-big" id="weeklyWords">2.028</p>
+        <p class="card-meta" id="weeklyMeta">2.028 / 10.000 palabras</p>
+        <div class="progress brown"><span id="weeklyBar" style="width:20.28%"></span></div>
+      </article>
+
+      <article class="card countdown-card">
+        <div class="card-label" style="justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+          <span data-i18n="pubCountdown">Cuenta regresiva de publicación</span>
+        </div>
+        <h3 class="card-title" data-sample="p2">A poca distancia</h3>
+        <p class="card-big">9</p>
+        <p class="card-meta" data-i18n="daysLeft">días restantes</p>
+      </article>
+    </div>
+
+    <!-- Improvements strip: streak, momentum, mood -->
+    <div class="improv-strip">
+      <article class="card">
+        <div class="card-label" data-i18n="streak">Racha de escritura</div>
+        <p class="card-big streak-num" id="streakDays">12</p>
+        <p class="card-meta" data-i18n="streakMeta">días consecutivos · récord 19</p>
+      </article>
+
+      <article class="card">
+        <div class="card-label" data-i18n="dailyMomentum">Impulso vs. meta diaria</div>
+        <div style="display:flex;align-items:baseline;gap:0.35rem;flex-wrap:wrap">
+          <span class="card-big" style="font-size:1.75rem" id="wordsToday">278</span>
+          <span class="card-meta" style="margin:0" data-i18n="goalSuffix">/ 500 meta</span>
+        </div>
+        <div class="progress" style="margin-top:0.55rem"><span id="dailyBar" style="width:55.6%"></span></div>
+        <p class="nudge" id="dailyNudge">Te faltan 222 palabras para la meta de hoy. Un bloque corto basta.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-label" data-i18n="sessionMood">Ánimo de la sesión</div>
+        <p class="card-meta" style="margin-bottom:0.25rem" data-i18n="moodAsk">¿Cómo te sientes para escribir?</p>
+        <div class="mood-picker" role="group" data-i18n-aria="mood" aria-label="Ánimo">
+          <button type="button" class="mood-btn" data-mood="bajo"><span>🌧</span><span data-i18n="moodLow">Bajo</span></button>
+          <button type="button" class="mood-btn" data-mood="estable"><span>🌤</span><span data-i18n="moodSteady">Estable</span></button>
+          <button type="button" class="mood-btn" data-mood="alto"><span>☀</span><span data-i18n="moodHigh">Alto</span></button>
+        </div>
+      </article>
+    </div>
+
+    <!-- Words by day -->
+    <article class="card chart-card">
+      <div class="chart-head">
+        <div class="card-label" style="margin:0" data-i18n="wordsPerDay">Palabras por día</div>
+        <a href="#" id="fullStats" data-i18n="fullStats">Estadísticas completas</a>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-y" aria-hidden="true">
+          <span>1.800</span><span>1.350</span><span>900</span><span>450</span><span>0</span>
+        </div>
+        <svg viewBox="0 0 720 200" preserveAspectRatio="none" id="wordsChart" data-i18n-aria="wordsChart" aria-label="Gráfica de palabras por día"></svg>
+      </div>
+      <div class="chart-x" id="chartX"></div>
+    </article>
+
+    <!-- Tasks | Projects | Focus -->
+    <div class="grid-3">
+      <article class="card">
+        <h3 class="section-title" data-i18n="tasksToday">Tareas de hoy</h3>
+        <ul class="task-list">
+          <li class="task-item">
+            <span class="check" data-i18n-aria="completed" aria-label="Completada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div>
+              <p class="task-text" data-i18n="task1">Escribir 1.200 palabras del Capítulo 9 de Al norte del río</p>
+            </div>
+          </li>
+          <li class="task-item">
+            <span class="check" data-i18n-aria="completed" aria-label="Completada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div>
+              <p class="task-text" data-i18n="task2">Revisión de continuidad: congelación invernal vs. barcazas</p>
+              <p class="task-tag" data-i18n="task2tag">Al norte del río · Auditoría de continuidad</p>
+            </div>
+          </li>
+          <li class="task-item">
+            <span class="check" data-i18n-aria="completed" aria-label="Completada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div>
+              <p class="task-text" data-i18n="task3">Borrador del ensayo 3: sobre releer Notas de oficio</p>
+            </div>
+          </li>
+        </ul>
+        <button type="button" class="add-task" id="addTask" data-i18n="addTask">+ Añadir tarea</button>
+      </article>
+
+      <article class="card">
+        <h3 class="section-title" data-i18n="projectView">Vista de proyectos</h3>
+        <div class="project-list">
+          <div class="project">
+            <div class="project-name" data-sample="p1">Al norte del río</div>
+            <span class="pill" data-i18n="statusDraft">En borrador</span>
+            <div class="project-sub" data-i18n="seriesRiver">El ciclo del río · Libro 1</div>
+            <div class="progress"><span style="width:32%"></span></div>
+          </div>
+          <div class="project">
+            <div class="project-name" data-sample="p2">A poca distancia</div>
+            <span class="pill revising" data-i18n="statusRevising">Revisando</span>
+            <div class="project-sub" data-i18n="standalone">Independiente</div>
+            <div class="progress"><span style="width:78%"></span></div>
+          </div>
+          <div class="project">
+            <div class="project-name" data-sample="p3">Notas de oficio</div>
+            <span class="pill outlining" data-i18n="statusOutlining">Esquematizando</span>
+            <div class="project-sub" data-i18n="essays">Ensayos</div>
+            <div class="progress"><span style="width:45%"></span></div>
+          </div>
+        </div>
+        <div class="project-report-row">
+          <select id="reportNovelSelectDesk" data-i18n-aria="pickNovel" aria-label="Elegir novela"></select>
+          <button type="button" class="btn-sm" id="generateReportDesk" data-i18n="generateReport">Generar reporte</button>
+        </div>
+        <div class="proxima">
+          <strong data-i18n="nextSession">Próxima sesión</strong>
+          <span id="proximaSesion">~42 min para ~1.050 palabras restantes del cap. 9 (a ~25 pal/min).</span>
+        </div>
+      </article>
+
+      <article class="card focus-card">
+        <h3 class="section-title" style="align-self:flex-start;width:100%" data-i18n="writingSprint">Sprint de escritura</h3>
+        <div class="process-steps" data-i18n-aria="writeCycle" aria-label="Ciclo de escritura">
+          <span class="step" data-step="1"><span class="num">1</span> <span data-i18n="stepChoose">Elegir</span></span>
+          <span class="step-arrow">→</span>
+          <span class="step active" data-step="2"><span class="num">2</span> <span data-i18n="stepFocus">Enfoque</span></span>
+          <span class="step-arrow">→</span>
+          <span class="step" data-step="3"><span class="num">3</span> <span data-i18n="stepLog">Registrar</span></span>
+          <span class="step-arrow">→</span>
+          <span class="step" data-step="4"><span class="num">4</span> <span data-i18n="stepClose">Cerrar</span></span>
+        </div>
+        <div class="timer-ring">
+          <svg viewBox="0 0 140 140">
+            <circle class="track" cx="70" cy="70" r="65" />
+            <circle class="prog" id="timerProg" cx="70" cy="70" r="65" />
+          </svg>
+          <div class="timer-center">
+            <span class="time" id="timerDisplay">45:00</span>
+            <span class="mode" id="timerMode">Enfoque</span>
+          </div>
+        </div>
+        <input class="focus-ms" type="text" id="focusManuscript" value="Al norte del río" data-sample-value="p1" data-i18n-aria="sprintMs" aria-label="Manuscrito del sprint" />
+        <div class="focus-controls">
+          <button type="button" class="btn-primary" id="timerStart">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <span id="timerStartLabel" data-i18n="start">Iniciar</span>
+          </button>
+          <button type="button" class="btn-secondary" id="timerBreak">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+            <span data-i18n="break">Pausa</span>
+          </button>
+          <button type="button" class="btn-icon" id="timerReset" data-i18n-aria="reset" aria-label="Reiniciar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          </button>
+        </div>
+        <div class="session-log">
+          <div class="label" data-i18n="sessionWords">Palabras de esta sesión</div>
+          <div class="session-log-row">
+            <input type="number" id="sessionWords" min="0" step="10" placeholder="0" data-i18n-aria="sessionWords" aria-label="Palabras de esta sesión" />
+            <button type="button" class="btn-save-session" id="saveSession" data-i18n="saveSession">Guardar sesión</button>
+          </div>
+        </div>
+        <button type="button" class="btn-cerrar-sesion" id="btnCerrarSesion" data-i18n="closeSession">Cerrar sesión</button>
+        <button type="button" class="btn-solo" id="btnSoloSprint" style="width:100%;margin-top:0.45rem;justify-content:center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span data-i18n="soloWrite">Solo escribir</span>
+        </button>
+        <button type="button" class="log-session" id="logSession" data-i18n="logManual">Registrar sesión a mano</button>
+        <p class="last-session" id="lastSessionLine" hidden></p>
+      </article>
+    </div>
+
+    <!-- Continuity | Schedule -->
+    <div class="grid-bottom">
+      <article class="card">
+        <h3 class="section-title" data-i18n="continuityNotes">Notas de continuidad de la serie</h3>
+        <div class="continuity-toolbar">
+          <input type="search" id="noteFilter" data-i18n-placeholder="filterNotes" placeholder="Filtrar notas…" data-i18n-aria="searchNotes" aria-label="Buscar en notas de continuidad" />
+          <button type="button" class="btn-sm" id="exportNotes" data-i18n="exportMd">Exportar Markdown</button>
+        </div>
+        <ul class="notes-list" id="notesList">
+          <li data-text="al norte del río el río se congela a fondo a finales de hearthmonth no hay tráfico de barcazas hasta el deshielo el capítulo 4 ya lo usa">
+            <span class="proj" data-sample="p1">Al norte del río</span>
+            <span class="body" data-i18n="note1">El río se congela a fondo a finales de Hearthmonth; no hay tráfico de barcazas hasta el deshielo. El capítulo 4 ya lo usa.</span>
+          </li>
+          <li data-text="al norte del río mara es zurda la brújula de latón va en el bolsillo derecho del abrigo para que pueda dibujar con la izquierda">
+            <span class="proj" data-sample="p1">Al norte del río</span>
+            <span class="body" data-i18n="note2">Mara es zurda. La brújula de latón va en el bolsillo derecho del abrigo para que pueda dibujar con la izquierda.</span>
+          </li>
+          <li data-text="al norte del río la torre del reloj del pueblo se derrumbó en 1912 el reemplazo tiene esfera pero no campanas los personajes no deben oír campanadas">
+            <span class="proj" data-sample="p1">Al norte del río</span>
+            <span class="body" data-i18n="note3">La torre del reloj del pueblo se derrumbó en 1912. El reemplazo tiene esfera pero no campanas; los personajes no deben oír campanadas.</span>
+          </li>
+          <li data-text="a poca distancia la pared compartida es el muro oeste de 4b este de 4a el radiador golpea tres veces no dos">
+            <span class="proj" data-sample="p2">A poca distancia</span>
+            <span class="body" data-i18n="note4">La pared compartida es el muro oeste de 4B / este de 4A. El radiador golpea tres veces, no dos.</span>
+          </li>
+        </ul>
+        <div class="add-note-row">
+          <select id="noteProject" data-i18n-aria="project" aria-label="Proyecto">
+            <option data-sample="p1">Al norte del río</option>
+            <option data-sample="p2">A poca distancia</option>
+            <option data-sample="p3">Notas de oficio</option>
+          </select>
+          <input type="text" id="noteInput" data-i18n-placeholder="addNotePh" placeholder="Añadir nota de continuidad…" />
+          <button type="button" class="btn-sm primary" id="addNote" data-i18n="add">Añadir</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="section-title" data-i18n="upcoming">Agenda próxima</h3>
+        <ul class="schedule-list">
+          <li class="schedule-item">
+            <span class="dot red"></span>
+            <span class="sched-text" data-i18n="sched1">Plazo personal del capítulo 9</span>
+            <span class="sched-date" data-i18n="sched1date">18 sep</span>
+          </li>
+          <li class="schedule-item">
+            <span class="dot amber"></span>
+            <span class="sched-text" data-i18n="sched2">Cuento: enviar al taller</span>
+            <span class="sched-date">—</span>
+          </li>
+          <li class="schedule-item">
+            <span class="dot green"></span>
+            <span class="sched-text" data-i18n="sched3">Llamada de presentación con diseñador/a de portada</span>
+            <span class="sched-date">—</span>
+          </li>
+        </ul>
+        <button type="button" class="view-cal" data-i18n="viewCal">Ver calendario</button>
+      </article>
+    </div>
+    </div><!-- /.desk-chrome -->
+
+    <!-- Solo escribir surface -->
+    <div class="solo-surface" id="soloSurface">
+      <div class="solo-bar">
+        <div class="solo-meta">
+          <span class="solo-ms" id="soloManuscript" data-sample="p1">Al norte del río</span>
+          <span class="solo-pen" id="soloPenName">Jane Doe</span>
+        </div>
+        <div class="solo-bar-actions">
+          <span class="solo-hint" data-i18n="escExit">Esc para salir</span>
+          <button type="button" class="btn-cerrar-sesion" id="btnCerrarSesionSolo" style="width:auto;margin:0;padding:0.5rem 1rem;border-radius:999px;font-size:0.82rem" data-i18n="closeSession">Cerrar sesión</button>
+          <button type="button" class="btn-salir-foco" id="btnSalirFoco" data-i18n="exitFocus">Salir del foco</button>
+        </div>
+      </div>
+      <textarea class="solo-draft" id="soloDraft" data-i18n-placeholder="draftPh" placeholder="Escribe aquí… el borrador se guarda solo." data-i18n-aria="draftAria" aria-label="Borrador de escritura"></textarea>
+      <p class="solo-draft-status" id="soloDraftStatus" data-i18n="draftReady">Borrador listo</p>
+      <div class="solo-tools">
+        <div class="solo-timer-box">
+          <div class="solo-mode" id="soloTimerMode" data-i18n="stepFocus">Enfoque</div>
+          <div class="solo-time" id="soloTimerDisplay">45:00</div>
+          <div class="focus-controls" style="margin-top:0.75rem">
+            <button type="button" class="btn-primary" id="soloTimerStart">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span id="soloTimerStartLabel" data-i18n="start">Iniciar</span>
+            </button>
+            <button type="button" class="btn-icon" id="soloTimerReset" data-i18n-aria="reset" aria-label="Reiniciar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="solo-side-tools">
+          <div class="card-label" data-i18n="sessionMood">Ánimo de la sesión</div>
+          <div class="mood-picker" role="group" data-i18n-aria="moodFocus" aria-label="Ánimo en foco" id="soloMoodPicker">
+            <button type="button" class="mood-btn" data-mood="bajo"><span>🌧</span><span data-i18n="moodLow">Bajo</span></button>
+            <button type="button" class="mood-btn" data-mood="estable"><span>🌤</span><span data-i18n="moodSteady">Estable</span></button>
+            <button type="button" class="mood-btn" data-mood="alto"><span>☀</span><span data-i18n="moodHigh">Alto</span></button>
+          </div>
+          <div class="session-log">
+            <div class="label" data-i18n="sessionWords">Palabras de esta sesión</div>
+            <div class="session-log-row">
+              <input type="number" id="soloSessionWords" min="0" step="10" placeholder="0" data-i18n-aria="sessionWordsFocus" aria-label="Palabras de esta sesión (foco)" />
+            </div>
+          </div>
+          <button type="button" class="btn-cerrar-sesion" id="btnCerrarSesionSolo2" data-i18n="closeSession">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Settings modal -->
+<div class="modal-backdrop" id="settingsModal" role="dialog" aria-labelledby="settingsTitle" aria-modal="true">
+  <div class="modal">
+    <h2 id="settingsTitle" data-i18n="settings">Ajustes</h2>
+    <p data-i18n="settingsIntro">Puedes restablecer un escritorio en blanco para quitar los ejemplos de arranque. Tus notas rápidas, ánimo, nombres de pluma, borradores (Solo escribir) y sesiones se guardan en este navegador (localStorage).</p>
+    <p style="font-size:0.82rem;color:var(--muted)" data-i18n="settingsTagline">Horas tranquilas. La siguiente frase te espera.</p>
+
+    <div class="settings-section">
+      <h3 data-i18n="language">Idioma / Language</h3>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" id="langEs" class="active" data-lang="es">Español</button>
+        <button type="button" id="langEn" data-lang="en">English</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 data-i18n="themeSection">Tema</h3>
+      <p class="hint" data-i18n="themeHint">Claro, oscuro, o seguir el sistema (prefers-color-scheme).</p>
+      <div class="theme-toggle" role="group" data-i18n-aria="themeGroup" aria-label="Tema">
+        <button type="button" id="themeLight" data-theme-mode="light" data-i18n="themeLight">Claro</button>
+        <button type="button" id="themeDark" data-theme-mode="dark" data-i18n="themeDark">Oscuro</button>
+        <button type="button" id="themeSystem" data-theme-mode="system" data-i18n="themeSystem">Sistema</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 data-i18n="managePens">Gestionar nombres de pluma</h3>
+      <p class="hint" data-i18n="managePensHint">Añade, renombra o elimina seudónimos. En la barra lateral solo eliges con cuál escribes.</p>
+      <ul class="settings-pen-list" id="settingsPenList"></ul>
+      <div class="settings-pen-add">
+        <input type="text" id="settingsPenInput" maxlength="40" data-i18n-placeholder="newPenPlaceholder" placeholder="Nuevo nombre…" data-i18n-aria="newPenAria" aria-label="Nuevo nombre de pluma" />
+        <button type="button" class="btn-add" id="settingsPenAdd" data-i18n="add">Añadir</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 data-i18n="exportData">Exportar datos</h3>
+      <p class="hint" data-i18n="exportDataHint">Descarga nombres de pluma, sesiones, metadatos de borradores, notas de continuidad y proyectos (JSON o Markdown).</p>
+      <div class="settings-export-row">
+        <button type="button" class="btn-add" id="exportDataJson" data-i18n="exportJson">Exportar JSON</button>
+        <button type="button" class="btn-add" id="exportDataMd" data-i18n="exportFullMd">Exportar Markdown</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 data-i18n="novelReport">Reporte por novela</h3>
+      <p class="hint" data-i18n="novelReportHint">Elige un manuscrito y genera un reporte Markdown descargable.</p>
+      <div class="settings-report-row">
+        <select id="reportNovelSelect" data-i18n-aria="pickNovel" aria-label="Elegir novela"></select>
+        <button type="button" class="btn-add" id="generateReport" data-i18n="generateReport">Generar reporte</button>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:1.15rem">
+      <button type="button" class="btn-secondary" id="closeSettings" style="flex:0;padding:0.55rem 1rem" data-i18n="close">Cerrar</button>
+      <button type="button" class="btn-primary" id="resetDesk" style="flex:0;padding:0.55rem 1rem" data-i18n="resetDesk">Restablecer escritorio</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  const CIRC = 2 * Math.PI * 65;
+  const FOCUS_SECS = 45 * 60;
+  const BREAK_SECS = 5 * 60;
+  const LANG_KEY = "folio-es-lang";
+  const PEN_KEY = "folio-es-pennames";
+  const DRAFTS_KEY = "folio-es-drafts";
+  const THEME_KEY = "folio-es-theme";
+  const OLD_DEMO_PENS = ["Mileth P.", "M. Rivera", "Anónimo", "Anonymous"];
+
+  // —— i18n ——
+  const I18N = {
+    es: {
+      docTitle: "Ink House — El escritorio del escritor",
+      tagline: "El escritorio del escritor",
+      penNames: "Nombres de pluma",
+      penNameLabel: "Nombre de pluma",
+      choosePen: "Elegir nombre de pluma",
+      penEmptyHint: "Añade seudónimos en",
+      themeSection: "Tema",
+      themeHint: "Claro, oscuro, o seguir el sistema (prefers-color-scheme).",
+      themeGroup: "Tema",
+      themeLight: "Claro",
+      themeDark: "Oscuro",
+      themeSystem: "Sistema",
+      toastTheme: "Tema: ",
+      exportData: "Exportar datos",
+      exportDataHint: "Descarga nombres de pluma, sesiones, metadatos de borradores, notas de continuidad y proyectos (JSON o Markdown).",
+      exportJson: "Exportar JSON",
+      exportFullMd: "Exportar Markdown",
+      toastExportJson: "Exportado ink-house-datos.json",
+      toastExportFullMd: "Exportado ink-house-datos.md",
+      novelReport: "Reporte por novela",
+      novelReportHint: "Elige un manuscrito y genera un reporte Markdown descargable.",
+      pickNovel: "Elegir novela",
+      generateReport: "Generar reporte",
+      toastReport: "Reporte generado",
+      toastReportNeed: "Elige una novela primero",
+      confirmDeletePen: "¿Eliminar este nombre de pluma?",
+      edit: "Editar",
+      settings: "Ajustes",
+      navDesk: "Escritorio",
+      navMs: "Manuscritos",
+      navTasks: "Tareas",
+      navCal: "Calendario",
+      navStats: "Estadísticas",
+      navPrompts: "Disparadores",
+      navMuse: "Musa",
+      quickNote: "Nota rápida",
+      quickNotePh: "Anota algo…",
+      saveNote: "Guardar nota",
+      searchPh: "Buscar manuscritos, tareas, disparadores",
+      soloWrite: "Solo escribir",
+      soloModeTitle: "Modo Solo escribir",
+      darkMode: "Modo oscuro",
+      quote: "La casa se aquieta. El borrador también puede.",
+      hoyEscribo: "Hoy escribo",
+      startWriting: "Empezar a escribir",
+      banner: "Los ejemplos de arranque están en este escritorio para que las gráficas tengan algo que mostrar. Reemplázalos con tu trabajo, o restablece un escritorio en blanco en Ajustes.",
+      currentMs: "Manuscrito actual",
+      chapterProgress: "Capítulo 8 / 28 · 32%",
+      deadlineTrack: "Seguimiento de plazos",
+      deadlineDate: "25 de septiembre de 2026",
+      deadlineDays: "— 9 días",
+      weeklyCount: "Conteo semanal de palabras",
+      pubCountdown: "Cuenta regresiva de publicación",
+      daysLeft: "días restantes",
+      streak: "Racha de escritura",
+      streakMeta: "días consecutivos · récord 19",
+      dailyMomentum: "Impulso vs. meta diaria",
+      goalSuffix: "/ 500 meta",
+      sessionMood: "Ánimo de la sesión",
+      moodAsk: "¿Cómo te sientes para escribir?",
+      mood: "Ánimo",
+      moodFocus: "Ánimo en foco",
+      moodLow: "Bajo",
+      moodSteady: "Estable",
+      moodHigh: "Alto",
+      wordsPerDay: "Palabras por día",
+      fullStats: "Estadísticas completas",
+      wordsChart: "Gráfica de palabras por día",
+      tasksToday: "Tareas de hoy",
+      task1: "Escribir 1.200 palabras del Capítulo 9 de Al norte del río",
+      task2: "Revisión de continuidad: congelación invernal vs. barcazas",
+      task2tag: "Al norte del río · Auditoría de continuidad",
+      task3: "Borrador del ensayo 3: sobre releer Notas de oficio",
+      addTask: "+ Añadir tarea",
+      completed: "Completada",
+      projectView: "Vista de proyectos",
+      statusDraft: "En borrador",
+      seriesRiver: "El ciclo del río · Libro 1",
+      statusRevising: "Revisando",
+      standalone: "Independiente",
+      statusOutlining: "Esquematizando",
+      essays: "Ensayos",
+      nextSession: "Próxima sesión",
+      nextSessionText: "~42 min para ~1.050 palabras restantes del cap. 9 (a ~25 pal/min).",
+      writingSprint: "Sprint de escritura",
+      writeCycle: "Ciclo de escritura",
+      stepChoose: "Elegir",
+      stepFocus: "Enfoque",
+      stepLog: "Registrar",
+      stepClose: "Cerrar",
+      sprintMs: "Manuscrito del sprint",
+      start: "Iniciar",
+      pause: "Pausar",
+      resume: "Reanudar",
+      break: "Pausa",
+      reset: "Reiniciar",
+      sessionWords: "Palabras de esta sesión",
+      saveSession: "Guardar sesión",
+      closeSession: "Cerrar sesión",
+      logManual: "Registrar sesión a mano",
+      continuityNotes: "Notas de continuidad de la serie",
+      filterNotes: "Filtrar notas…",
+      searchNotes: "Buscar en notas de continuidad",
+      exportMd: "Exportar Markdown",
+      note1: "El río se congela a fondo a finales de Hearthmonth; no hay tráfico de barcazas hasta el deshielo. El capítulo 4 ya lo usa.",
+      note2: "Mara es zurda. La brújula de latón va en el bolsillo derecho del abrigo para que pueda dibujar con la izquierda.",
+      note3: "La torre del reloj del pueblo se derrumbó en 1912. El reemplazo tiene esfera pero no campanas; los personajes no deben oír campanadas.",
+      note4: "La pared compartida es el muro oeste de 4B / este de 4A. El radiador golpea tres veces, no dos.",
+      project: "Proyecto",
+      addNotePh: "Añadir nota de continuidad…",
+      add: "Añadir",
+      upcoming: "Agenda próxima",
+      sched1: "Plazo personal del capítulo 9",
+      sched1date: "18 sep",
+      sched2: "Cuento: enviar al taller",
+      sched3: "Llamada de presentación con diseñador/a de portada",
+      viewCal: "Ver calendario",
+      escExit: "Esc para salir",
+      exitFocus: "Salir del foco",
+      draftPh: "Escribe aquí… el borrador se guarda solo.",
+      draftAria: "Borrador de escritura",
+      draftReady: "Borrador listo",
+      draftRestored: "Borrador restaurado",
+      saving: "Guardando…",
+      savedAt: "Guardado · ",
+      settingsIntro: "Puedes restablecer un escritorio en blanco para quitar los ejemplos de arranque. Tus notas rápidas, ánimo, nombres de pluma, borradores (Solo escribir) y sesiones se guardan en este navegador (localStorage).",
+      settingsTagline: "Horas tranquilas. La siguiente frase te espera.",
+      language: "Idioma / Language",
+      managePens: "Gestionar nombres de pluma",
+      managePensHint: "Añade, renombra o elimina seudónimos. En la barra lateral solo eliges con cuál escribes.",
+      newPenPlaceholder: "Nuevo nombre…",
+      newPenAria: "Nuevo nombre de pluma",
+      close: "Cerrar",
+      resetDesk: "Restablecer escritorio",
+      setActive: "Activar",
+      rename: "Editar",
+      delete: "Eliminar",
+      mainNav: "Principal",
+      sessionWordsFocus: "Palabras de esta sesión (foco)",
+      greetMorning: "Buenos días",
+      greetAfternoon: "Buenas tardes",
+      greetEvening: "Buenas noches",
+      rest: "Descanso",
+      untitled: "Sin título",
+      wordsUnit: "palabras",
+      lastSession: "Última sesión",
+      pal: "pal.",
+      noMood: "sin ánimo",
+      toastWriteAs: "Escribes como ",
+      toastPenAdded: "Nombre de pluma añadido",
+      toastPenExists: "Ya existía — ahora activo",
+      toastPenNeedName: "Escribe un nombre de pluma",
+      toastPenRenamed: "Nombre actualizado",
+      toastPenDeleted: "Seudónimo eliminado",
+      toastPenNeedOne: "Deja al menos un nombre de pluma",
+      toastMoodSaved: "Ánimo guardado: ",
+      toastNoteNeed: "Escribe una nota primero",
+      toastNoteAdded: "Nota de continuidad añadida",
+      toastExported: "Exportado continuidad-ink-house.md",
+      toastSprintDone: "Sprint terminado. ¿Un descanso?",
+      toastBreakDone: "Descanso listo. De vuelta al texto.",
+      toastBreakMode: "Modo descanso · 5:00",
+      toastNeedWords: "Indica las palabras de la sesión",
+      toastSessionSaved: "Sesión guardada: +",
+      toastManualHint: "Sesión ~",
+      toastManualHint2: " min — indica las palabras y guarda",
+      toastFocusStarted: "Enfoque iniciado · ",
+      toastResetDesk: "Escritorio en blanco: en esta réplica los ejemplos son estáticos. Borra localStorage si quieres reiniciar preferencias.",
+      toastQuickSaved: "Nota rápida guardada",
+      toastAddTask: "Añadir tarea (réplica de demostración)",
+      toastFullStats: "Estadísticas completas — próxima vista",
+      toastCal: "Calendario — próxima vista",
+      toastDemoView: " — vista de demostración",
+      toastSolo: "Solo escribir · Esc para salir",
+      toastBackDesk: "De vuelta al escritorio",
+      toastSessionClosed: "Sesión cerrada · ",
+      toastLang: "Idioma: Español",
+      metaDone: "Meta del día cumplida. Buen impulso — puedes cerrar con calma.",
+      metaHalf: "Te faltan {n} palabras para la meta de hoy. Un bloque corto basta.",
+      metaLow: "Vas por {a} de {b}. Empieza con 15 minutos; el resto viene solo.",
+      continuityMdTitle: "# Notas de continuidad de la serie\n\n",
+      anon: "Anónimo",
+      p1: "Al norte del río",
+      p2: "A poca distancia",
+      p3: "Notas de oficio"
+    },
+    en: {
+      docTitle: "Ink House — The writer's desk",
+      tagline: "The writer's desk",
+      penNames: "Pen names",
+      penNameLabel: "Pen Name",
+      choosePen: "Choose pen name",
+      penEmptyHint: "Add pen names in",
+      themeSection: "Theme",
+      themeHint: "Light, dark, or follow the system (prefers-color-scheme).",
+      themeGroup: "Theme",
+      themeLight: "Light",
+      themeDark: "Dark",
+      themeSystem: "System",
+      toastTheme: "Theme: ",
+      exportData: "Export data",
+      exportDataHint: "Download pen names, sessions, draft metadata, continuity notes, and projects (JSON or Markdown).",
+      exportJson: "Export JSON",
+      exportFullMd: "Export Markdown",
+      toastExportJson: "Exported ink-house-datos.json",
+      toastExportFullMd: "Exported ink-house-datos.md",
+      novelReport: "Report by novel",
+      novelReportHint: "Pick a manuscript and generate a downloadable Markdown report.",
+      pickNovel: "Pick a novel",
+      generateReport: "Generate report",
+      toastReport: "Report generated",
+      toastReportNeed: "Pick a novel first",
+      confirmDeletePen: "Delete this pen name?",
+      edit: "Edit",
+      settings: "Settings",
+      navDesk: "Desk",
+      navMs: "Manuscripts",
+      navTasks: "Tasks",
+      navCal: "Calendar",
+      navStats: "Stats",
+      navPrompts: "Prompts",
+      navMuse: "Muse",
+      quickNote: "Quick note",
+      quickNotePh: "Jot something…",
+      saveNote: "Save note",
+      searchPh: "Search manuscripts, tasks, prompts",
+      soloWrite: "Write only",
+      soloModeTitle: "Write-only mode",
+      darkMode: "Dark mode",
+      quote: "The house grows quiet. The draft can too.",
+      hoyEscribo: "Writing today",
+      startWriting: "Start writing",
+      banner: "Starter samples live on this desk so the charts have something to show. Replace them with your work, or reset to a blank desk in Settings.",
+      currentMs: "Current manuscript",
+      chapterProgress: "Chapter 8 / 28 · 32%",
+      deadlineTrack: "Deadline tracking",
+      deadlineDate: "September 25, 2026",
+      deadlineDays: "— 9 days",
+      weeklyCount: "Weekly word count",
+      pubCountdown: "Publication countdown",
+      daysLeft: "days left",
+      streak: "Writing streak",
+      streakMeta: "days in a row · record 19",
+      dailyMomentum: "Momentum vs. daily goal",
+      goalSuffix: "/ 500 goal",
+      sessionMood: "Session mood",
+      moodAsk: "How do you feel about writing?",
+      mood: "Mood",
+      moodFocus: "Focus mood",
+      moodLow: "Low",
+      moodSteady: "Steady",
+      moodHigh: "High",
+      wordsPerDay: "Words per day",
+      fullStats: "Full stats",
+      wordsChart: "Words-per-day chart",
+      tasksToday: "Today's tasks",
+      task1: "Write 1,200 words of Chapter 9 of North of the River",
+      task2: "Continuity check: winter freeze vs. barges",
+      task2tag: "North of the River · Continuity audit",
+      task3: "Draft essay 3: on rereading Craft Notes",
+      addTask: "+ Add task",
+      completed: "Completed",
+      projectView: "Project view",
+      statusDraft: "Drafting",
+      seriesRiver: "The River Cycle · Book 1",
+      statusRevising: "Revising",
+      standalone: "Standalone",
+      statusOutlining: "Outlining",
+      essays: "Essays",
+      nextSession: "Next session",
+      nextSessionText: "~42 min for ~1,050 words left in ch. 9 (at ~25 wpm).",
+      writingSprint: "Writing sprint",
+      writeCycle: "Writing cycle",
+      stepChoose: "Choose",
+      stepFocus: "Focus",
+      stepLog: "Log",
+      stepClose: "Close",
+      sprintMs: "Sprint manuscript",
+      start: "Start",
+      pause: "Pause",
+      resume: "Resume",
+      break: "Break",
+      reset: "Reset",
+      sessionWords: "Words this session",
+      saveSession: "Save session",
+      closeSession: "Close session",
+      logManual: "Log session by hand",
+      continuityNotes: "Series continuity notes",
+      filterNotes: "Filter notes…",
+      searchNotes: "Search continuity notes",
+      exportMd: "Export Markdown",
+      note1: "The river freezes solid by late Hearthmonth; no barge traffic until thaw. Chapter 4 already uses this.",
+      note2: "Mara is left-handed. The brass compass goes in the coat's right pocket so she can sketch with her left.",
+      note3: "The town clock tower collapsed in 1912. The replacement has a face but no bells; characters must not hear chimes.",
+      note4: "The shared wall is the west wall of 4B / east of 4A. The radiator knocks three times, not two.",
+      project: "Project",
+      addNotePh: "Add a continuity note…",
+      add: "Add",
+      upcoming: "Upcoming",
+      sched1: "Personal deadline for chapter 9",
+      sched1date: "18 Sep",
+      sched2: "Short story: send to workshop",
+      sched3: "Intro call with cover designer",
+      viewCal: "View calendar",
+      escExit: "Esc to exit",
+      exitFocus: "Leave focus",
+      draftPh: "Write here… the draft saves itself.",
+      draftAria: "Writing draft",
+      draftReady: "Draft ready",
+      draftRestored: "Draft restored",
+      saving: "Saving…",
+      savedAt: "Saved · ",
+      settingsIntro: "You can reset to a blank desk to clear starter samples. Quick notes, mood, pen names, drafts (Write only), and sessions are stored in this browser (localStorage).",
+      settingsTagline: "Quiet hours. The next sentence is waiting.",
+      language: "Idioma / Language",
+      managePens: "Manage pen names",
+      managePensHint: "Add, rename, or delete pen names. The sidebar only lets you choose which one you're writing as.",
+      newPenPlaceholder: "New name…",
+      newPenAria: "New pen name",
+      close: "Close",
+      resetDesk: "Reset desk",
+      setActive: "Set active",
+      rename: "Edit",
+      delete: "Delete",
+      mainNav: "Main",
+      sessionWordsFocus: "Words this session (focus)",
+      greetMorning: "Good morning",
+      greetAfternoon: "Good afternoon",
+      greetEvening: "Good evening",
+      rest: "Break",
+      untitled: "Untitled",
+      wordsUnit: "words",
+      lastSession: "Last session",
+      pal: "wds",
+      noMood: "no mood",
+      toastWriteAs: "Writing as ",
+      toastPenAdded: "Pen name added",
+      toastPenExists: "Already existed — now active",
+      toastPenNeedName: "Enter a pen name",
+      toastPenRenamed: "Name updated",
+      toastPenDeleted: "Pen name removed",
+      toastPenNeedOne: "Keep at least one pen name",
+      toastMoodSaved: "Mood saved: ",
+      toastNoteNeed: "Write a note first",
+      toastNoteAdded: "Continuity note added",
+      toastExported: "Exported continuidad-ink-house.md",
+      toastSprintDone: "Sprint done. Take a break?",
+      toastBreakDone: "Break over. Back to the page.",
+      toastBreakMode: "Break mode · 5:00",
+      toastNeedWords: "Enter the session word count",
+      toastSessionSaved: "Session saved: +",
+      toastManualHint: "Session ~",
+      toastManualHint2: " min — enter words and save",
+      toastFocusStarted: "Focus started · ",
+      toastResetDesk: "Blank desk: in this replica samples are static. Clear localStorage to reset preferences.",
+      toastQuickSaved: "Quick note saved",
+      toastAddTask: "Add task (demo replica)",
+      toastFullStats: "Full stats — coming soon",
+      toastCal: "Calendar — coming soon",
+      toastDemoView: " — demo view",
+      toastSolo: "Write only · Esc to exit",
+      toastBackDesk: "Back to the desk",
+      toastSessionClosed: "Session closed · ",
+      toastLang: "Language: English",
+      metaDone: "Daily goal met. Nice momentum — you can close gently.",
+      metaHalf: "{n} words left for today's goal. A short block will do.",
+      metaLow: "You're at {a} of {b}. Start with 15 minutes; the rest follows.",
+      continuityMdTitle: "# Series continuity notes\n\n",
+      anon: "Anonymous",
+      p1: "North of the River",
+      p2: "A Short Distance",
+      p3: "Craft Notes"
+    }
+  };
+
+  let lang = localStorage.getItem(LANG_KEY) === "en" ? "en" : "es";
+
+  function t(key) {
+    const pack = I18N[lang] || I18N.es;
+    return (pack[key] != null ? pack[key] : (I18N.es[key] != null ? I18N.es[key] : key));
+  }
+
+  function defaultPens() {
+    return ["Jane Doe", "John Doe"];
+  }
+
+  function isOnlyOldDemoPens(names) {
+    if (!names || !names.length) return false;
+    const old = new Set(OLD_DEMO_PENS);
+    return names.every(n => old.has(n));
+  }
+
+  function sampleName(id) {
+    return t(id); // p1, p2, p3
+  }
+
+  function applySampleTitles() {
+    document.querySelectorAll("[data-sample]").forEach(el => {
+      const id = el.getAttribute("data-sample");
+      if (id) el.textContent = sampleName(id);
+    });
+    document.querySelectorAll("[data-sample-value]").forEach(el => {
+      const id = el.getAttribute("data-sample-value");
+      if (!id) return;
+      const next = sampleName(id);
+      // Only swap if still a known sample (either language)
+      const known = new Set([I18N.es.p1, I18N.es.p2, I18N.es.p3, I18N.en.p1, I18N.en.p2, I18N.en.p3]);
+      if (!el.value || known.has(el.value)) el.value = next;
+    });
+  }
+
+  function applyI18n() {
+    document.documentElement.lang = lang;
+    const titleEl = document.getElementById("docTitle");
+    if (titleEl) titleEl.textContent = t("docTitle");
+    else document.title = t("docTitle");
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key) el.textContent = t(key);
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (key) el.setAttribute("placeholder", t(key));
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+      const key = el.getAttribute("data-i18n-aria");
+      if (key) el.setAttribute("aria-label", t(key));
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(el => {
+      const key = el.getAttribute("data-i18n-title");
+      if (key) el.setAttribute("title", t(key));
+    });
+
+    applySampleTitles();
+    setGreeting();
+    updateHeroDate();
+    const prox = document.getElementById("proximaSesion");
+    if (prox) prox.textContent = t("nextSessionText");
+    document.getElementById("langEs")?.classList.toggle("active", lang === "es");
+    document.getElementById("langEn")?.classList.toggle("active", lang === "en");
+    // Refresh dynamic bits that depend on language
+    if (typeof renderTimer === "function") renderTimer();
+    if (typeof updateMomentum === "function") updateMomentum();
+    if (typeof renderLastSession === "function") renderLastSession();
+    if (typeof renderSettingsPens === "function") renderSettingsPens();
+    if (typeof renderPens === "function") renderPens();
+    if (typeof syncThemeButtons === "function") syncThemeButtons();
+    if (typeof fillNovelSelects === "function") fillNovelSelects();
+  }
+
+  function setLang(next) {
+    if (next !== "es" && next !== "en") return;
+    const prevAnon = t("anon");
+    lang = next;
+    localStorage.setItem(LANG_KEY, lang);
+    // Migrate default Anonymous label if present
+    const newAnon = (next === "en" ? I18N.en.anon : I18N.es.anon);
+    const otherAnon = (next === "en" ? I18N.es.anon : I18N.en.anon);
+    penState.names = penState.names.map(n => (n === otherAnon ? newAnon : n));
+    if (penState.active === otherAnon) penState.active = newAnon;
+    savePens();
+    applyI18n();
+    toast(t("toastLang"));
+  }
+
+  // —— Chart data ——
+  const dayWords = [
+    { d: "17 ago", w: 320 }, { d: "19 ago", w: 890 }, { d: "21 ago", w: 210 },
+    { d: "23 ago", w: 1100 }, { d: "25 ago", w: 450 }, { d: "27 ago", w: 780 },
+    { d: "29 ago", w: 120 }, { d: "31 ago", w: 1450 }, { d: "2 sep", w: 600 },
+    { d: "4 sep", w: 980 }, { d: "6 sep", w: 340 }, { d: "8 sep", w: 1620 },
+    { d: "10 sep", w: 510 }, { d: "12 sep", w: 280 }, { d: "14 sep", w: 420 },
+    { d: "15 sep", w: 278 }, { d: "16 sep", w: 0 }
+  ];
+  const weekly = [180, 420, 0, 350, 510, 290, 278];
+  for (let i = 0; i < 7; i++) {
+    dayWords[dayWords.length - 7 + i].w = weekly[i];
+  }
+
+  function drawChart() {
+    const svg = document.getElementById("wordsChart");
+    const xLabels = document.getElementById("chartX");
+    const maxY = 1800;
+    const padL = 48, padR = 8, padT = 8, padB = 8;
+    const W = 720, H = 200;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const n = dayWords.length;
+    const pts = dayWords.map((p, i) => {
+      const x = padL + (i / (n - 1)) * plotW;
+      const y = padT + plotH - (Math.min(p.w, maxY) / maxY) * plotH;
+      return { x, y, w: p.w };
+    });
+    let line = "";
+    pts.forEach((p, i) => { line += (i ? " L " : "M ") + p.x.toFixed(1) + " " + p.y.toFixed(1); });
+    const area = line + " L " + pts[pts.length - 1].x.toFixed(1) + " " + (padT + plotH) +
+      " L " + pts[0].x.toFixed(1) + " " + (padT + plotH) + " Z";
+    let grid = "";
+    [0, 0.25, 0.5, 0.75, 1].forEach(frac => {
+      const y = padT + plotH * (1 - frac);
+      grid += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="var(--border-soft)" stroke-width="1"/>`;
+    });
+    svg.innerHTML = grid +
+      `<path d="${area}" fill="var(--green-fill)" />` +
+      `<path d="${line}" fill="none" stroke="var(--green-line)" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round"/>`;
+    xLabels.innerHTML = "";
+    const labelCount = 6;
+    for (let i = 0; i < labelCount; i++) {
+      const idx = Math.round(i * (n - 1) / (labelCount - 1));
+      const span = document.createElement("span");
+      span.textContent = dayWords[idx].d;
+      xLabels.appendChild(span);
+    }
+  }
+
+  function updateHeroDate() {
+    const el = document.getElementById("heroDate");
+    if (!el) return;
+    const locale = lang === "en" ? "en-US" : "es-GT";
+    const d = new Date();
+    const weekday = d.toLocaleDateString(locale, { weekday: "long" });
+    const day = d.getDate();
+    const month = d.toLocaleDateString(locale, { month: "long" });
+    const cap = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    if (lang === "en") el.textContent = cap + " · " + month + " " + day;
+    else el.textContent = cap + " · " + day + " de " + month;
+  }
+
+  function setGreeting() {
+    const h = new Date().getHours();
+    const el = document.getElementById("greeting");
+    let base = t("greetEvening");
+    if (h < 12) base = t("greetMorning");
+    else if (h < 19) base = t("greetAfternoon");
+    const badge = document.getElementById("greetingPen");
+    if (badge) {
+      while (el.firstChild && el.firstChild !== badge) el.removeChild(el.firstChild);
+      el.insertBefore(document.createTextNode(base), badge);
+    } else {
+      el.textContent = base;
+    }
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+  }
+
+  // —— Theme: light | dark | system ——
+  function resolveThemeMode(mode) {
+    if (mode === "dark") return "dark";
+    if (mode === "light") return "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  function applyResolvedTheme(resolved) {
+    if (resolved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  function loadThemeMode() {
+    let mode = localStorage.getItem(THEME_KEY);
+    if (mode !== "light" && mode !== "dark" && mode !== "system") {
+      // migrate legacy folio-theme
+      const legacy = localStorage.getItem("folio-theme");
+      if (legacy === "dark") mode = "dark";
+      else if (legacy === "light") mode = "light";
+      else mode = "system";
+      localStorage.setItem(THEME_KEY, mode);
+    }
+    return mode;
+  }
+  let themeMode = loadThemeMode();
+  function syncThemeButtons() {
+    document.querySelectorAll("[data-theme-mode]").forEach(b => {
+      b.classList.toggle("active", b.getAttribute("data-theme-mode") === themeMode);
+    });
+    const btn = document.getElementById("themeToggle");
+    if (btn) {
+      const tip = themeMode === "light" ? t("themeLight") : (themeMode === "dark" ? t("themeDark") : t("themeSystem"));
+      btn.setAttribute("title", t("themeSection") + ": " + tip);
+      btn.setAttribute("aria-label", t("themeSection") + ": " + tip);
+    }
+  }
+  function setThemeMode(mode, quiet) {
+    if (mode !== "light" && mode !== "dark" && mode !== "system") return;
+    themeMode = mode;
+    localStorage.setItem(THEME_KEY, themeMode);
+    applyResolvedTheme(resolveThemeMode(themeMode));
+    syncThemeButtons();
+    if (!quiet) {
+      const label = mode === "light" ? t("themeLight") : (mode === "dark" ? t("themeDark") : t("themeSystem"));
+      toast(t("toastTheme") + label);
+    }
+  }
+  applyResolvedTheme(resolveThemeMode(themeMode));
+  const mqDark = window.matchMedia("(prefers-color-scheme: dark)");
+  function onSystemThemeChange() {
+    if (themeMode === "system") applyResolvedTheme(resolveThemeMode("system"));
+  }
+  if (mqDark.addEventListener) mqDark.addEventListener("change", onSystemThemeChange);
+  else if (mqDark.addListener) mqDark.addListener(onSystemThemeChange);
+
+  document.getElementById("themeLight")?.addEventListener("click", () => setThemeMode("light"));
+  document.getElementById("themeDark")?.addEventListener("click", () => setThemeMode("dark"));
+  document.getElementById("themeSystem")?.addEventListener("click", () => setThemeMode("system"));
+
+  const themeBtn = document.getElementById("themeToggle");
+  themeBtn.addEventListener("click", () => {
+    const order = ["light", "dark", "system"];
+    const next = order[(order.indexOf(themeMode) + 1) % order.length];
+    setThemeMode(next);
+  });
+  syncThemeButtons();
+
+  // —— Pen names ——
+  function loadPens() {
+    try {
+      const raw = localStorage.getItem(PEN_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.names)) {
+          let names = parsed.names.map(String).filter(Boolean);
+          // Migrate old personal demo defaults → Jane Doe + John Doe
+          if (isOnlyOldDemoPens(names)) {
+            names = defaultPens();
+            return { names, active: names[0] };
+          }
+          if (!names.length) return { names: [], active: "" };
+          const active = parsed.active && names.includes(parsed.active) ? parsed.active : names[0];
+          return { names, active };
+        }
+      }
+    } catch (_) {}
+    const legacy = (localStorage.getItem("folio-author") || "").trim();
+    const defs = defaultPens();
+    // Never re-inject Mileth / old demo names as defaults
+    const old = new Set(OLD_DEMO_PENS);
+    let names;
+    if (legacy && !old.has(legacy) && !defs.includes(legacy)) {
+      names = [legacy, ...defs];
+    } else {
+      names = [...defs];
+    }
+    const active = (legacy && !old.has(legacy) && names.includes(legacy)) ? legacy : names[0];
+    return { names, active };
+  }
+
+  let penState = loadPens();
+
+  function savePens() {
+    localStorage.setItem(PEN_KEY, JSON.stringify(penState));
+  }
+
+  function syncPenDisplays() {
+    const activeLabel = document.getElementById("penActiveLabel");
+    const greetPen = document.getElementById("greetingPen");
+    if (activeLabel) activeLabel.textContent = penState.active || "—";
+    if (greetPen) greetPen.textContent = penState.active ? " · " + penState.active : "";
+    const soloPen = document.getElementById("soloPenName");
+    if (soloPen) soloPen.textContent = penState.active || "—";
+  }
+
+  function renderPens() {
+    const list = document.getElementById("penList");
+    const empty = document.getElementById("penEmptyHint");
+    syncPenDisplays();
+    list.innerHTML = "";
+    if (!penState.names.length) {
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    penState.names.forEach(name => {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "pen-item" + (name === penState.active ? " active" : "");
+      btn.setAttribute("role", "option");
+      btn.setAttribute("aria-selected", name === penState.active ? "true" : "false");
+      btn.innerHTML = `<span></span><span class="pen-check" aria-hidden="true">✓</span>`;
+      btn.querySelector("span").textContent = name;
+      btn.addEventListener("click", () => {
+        penState.active = name;
+        savePens();
+        renderPens();
+        renderSettingsPens();
+        toast(t("toastWriteAs") + name);
+        if (soloActive) {
+          syncSoloMeta();
+          loadDraftIntoEditor();
+        }
+      });
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  function renderSettingsPens() {
+    const list = document.getElementById("settingsPenList");
+    if (!list) return;
+    list.innerHTML = "";
+    penState.names.forEach((name, idx) => {
+      const li = document.createElement("li");
+      li.className = "settings-pen-row" + (name === penState.active ? " is-active" : "");
+      const input = document.createElement("input");
+      input.type = "text";
+      input.maxLength = 40;
+      input.value = name;
+      input.setAttribute("aria-label", t("rename"));
+      const actions = document.createElement("div");
+      actions.className = "pen-actions";
+
+      const btnActive = document.createElement("button");
+      btnActive.type = "button";
+      btnActive.className = "btn-pen-act";
+      btnActive.textContent = t("setActive");
+      btnActive.disabled = name === penState.active;
+      btnActive.addEventListener("click", () => {
+        penState.active = penState.names[idx];
+        savePens();
+        renderPens();
+        renderSettingsPens();
+        toast(t("toastWriteAs") + penState.active);
+      });
+
+      const btnSave = document.createElement("button");
+      btnSave.type = "button";
+      btnSave.className = "btn-pen-act";
+      btnSave.textContent = t("rename");
+      btnSave.addEventListener("click", () => {
+        const next = input.value.trim();
+        if (!next) { toast(t("toastPenNeedName")); input.value = name; return; }
+        if (penState.names.some((n, i) => i !== idx && n === next)) {
+          toast(t("toastPenExists"));
+          penState.active = next;
+          savePens();
+          renderPens();
+          renderSettingsPens();
+          return;
+        }
+        const wasActive = penState.active === penState.names[idx];
+        penState.names[idx] = next;
+        if (wasActive) penState.active = next;
+        savePens();
+        renderPens();
+        renderSettingsPens();
+        toast(t("toastPenRenamed"));
+      });
+
+      const btnDel = document.createElement("button");
+      btnDel.type = "button";
+      btnDel.className = "btn-pen-act danger";
+      btnDel.textContent = t("delete");
+      btnDel.addEventListener("click", () => {
+        if (!confirm(t("confirmDeletePen") + "\n\n«" + penState.names[idx] + "»")) return;
+        penState.names.splice(idx, 1);
+        if (!penState.names.includes(penState.active)) {
+          penState.active = penState.names[0] || "";
+        }
+        savePens();
+        renderPens();
+        renderSettingsPens();
+        toast(t("toastPenDeleted"));
+      });
+
+      actions.appendChild(btnActive);
+      actions.appendChild(btnSave);
+      actions.appendChild(btnDel);
+      li.appendChild(input);
+      li.appendChild(actions);
+      list.appendChild(li);
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") btnSave.click();
+      });
+    });
+  }
+
+  function addPenName(raw) {
+    const name = (raw || "").trim();
+    if (!name) { toast(t("toastPenNeedName")); return; }
+    if (penState.names.includes(name)) {
+      penState.active = name;
+      savePens();
+      renderPens();
+      renderSettingsPens();
+      toast(t("toastPenExists"));
+      return;
+    }
+    penState.names.push(name);
+    penState.active = name;
+    savePens();
+    renderPens();
+    renderSettingsPens();
+    toast(t("toastPenAdded"));
+  }
+
+  document.getElementById("settingsPenAdd").addEventListener("click", () => {
+    const input = document.getElementById("settingsPenInput");
+    addPenName(input.value);
+    input.value = "";
+    input.focus();
+  });
+  document.getElementById("settingsPenInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") document.getElementById("settingsPenAdd").click();
+  });
+
+  // —— Mood ——
+  function getActiveMood() {
+    return localStorage.getItem("folio-mood") || "";
+  }
+  function setMoodActive(mood) {
+    document.querySelectorAll(".mood-btn").forEach(b => {
+      b.classList.toggle("active", b.dataset.mood === mood);
+    });
+  }
+  function bindMoodButtons() {
+    document.querySelectorAll(".mood-btn").forEach(btn => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", () => {
+        setMoodActive(btn.dataset.mood);
+        localStorage.setItem("folio-mood", btn.dataset.mood);
+        localStorage.setItem("folio-mood-at", new Date().toISOString());
+        toast(t("toastMoodSaved") + btn.textContent.replace(/\s+/g, " ").trim());
+      });
+    });
+  }
+  const savedMood = localStorage.getItem("folio-mood");
+  if (savedMood) setMoodActive(savedMood);
+  bindMoodButtons();
+
+  // —— Momentum ——
+  const dailyGoal = 500;
+  const weeklyGoal = 10000;
+  let todayWords = 278;
+  let weeklyWords = 2028;
+
+  try {
+    const sess = JSON.parse(localStorage.getItem("folio-es-sessions") || "[]");
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const todaySess = sess.filter(s => (s.at || "").slice(0, 10) === todayKey);
+    if (todaySess.length) {
+      const fromStorage = Number(localStorage.getItem("folio-es-words-today"));
+      const dayKey = localStorage.getItem("folio-es-words-day");
+      if (dayKey === todayKey && !Number.isNaN(fromStorage)) todayWords = fromStorage;
+      const weekStored = Number(localStorage.getItem("folio-es-words-week"));
+      if (!Number.isNaN(weekStored) && weekStored > 0) weeklyWords = weekStored;
+    } else {
+      const dayKey = localStorage.getItem("folio-es-words-day");
+      const todayKey2 = new Date().toISOString().slice(0, 10);
+      if (dayKey === todayKey2) {
+        const fromStorage = Number(localStorage.getItem("folio-es-words-today"));
+        if (!Number.isNaN(fromStorage)) todayWords = fromStorage;
+        const weekStored = Number(localStorage.getItem("folio-es-words-week"));
+        if (!Number.isNaN(weekStored) && weekStored > 0) weeklyWords = weekStored;
+      }
+    }
+  } catch (_) {}
+
+  function formatNum(n) {
+    const s = String(n);
+    return lang === "en"
+      ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      : s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  function updateMomentum() {
+    const left = Math.max(0, dailyGoal - todayWords);
+    const pct = Math.min(100, (todayWords / dailyGoal) * 100);
+    document.getElementById("wordsToday").textContent = formatNum(todayWords);
+    document.getElementById("dailyBar").style.width = pct.toFixed(1) + "%";
+    const nudge = document.getElementById("dailyNudge");
+    if (left === 0) nudge.textContent = t("metaDone");
+    else if (pct >= 50) nudge.textContent = t("metaHalf").replace("{n}", String(left));
+    else nudge.textContent = t("metaLow").replace("{a}", String(todayWords)).replace("{b}", String(dailyGoal));
+
+    document.getElementById("hoyWordsLabel").textContent = formatNum(todayWords) + " / " + formatNum(dailyGoal);
+    document.getElementById("hoyMiniBar").style.width = pct.toFixed(1) + "%";
+
+    const wPct = Math.min(100, (weeklyWords / weeklyGoal) * 100);
+    document.getElementById("weeklyWords").textContent = formatNum(weeklyWords);
+    document.getElementById("weeklyMeta").textContent = formatNum(weeklyWords) + " / " + formatNum(weeklyGoal) + " " + t("wordsUnit");
+    document.getElementById("weeklyBar").style.width = wPct.toFixed(2) + "%";
+  }
+
+  function setProcessStep(n) {
+    document.querySelectorAll(".process-steps .step").forEach(el => {
+      el.classList.toggle("active", Number(el.dataset.step) === n);
+    });
+  }
+
+  // —— Continuity ——
+  const noteFilter = document.getElementById("noteFilter");
+  noteFilter.addEventListener("input", () => {
+    const q = noteFilter.value.trim().toLowerCase();
+    document.querySelectorAll("#notesList li").forEach(li => {
+      const hit = !q || (li.dataset.text || "").includes(q) || li.textContent.toLowerCase().includes(q);
+      li.classList.toggle("hidden", !hit);
+    });
+  });
+
+  document.getElementById("addNote").addEventListener("click", () => {
+    const proj = document.getElementById("noteProject").value;
+    const text = document.getElementById("noteInput").value.trim();
+    if (!text) { toast(t("toastNoteNeed")); return; }
+    const li = document.createElement("li");
+    const full = (proj + " " + text).toLowerCase();
+    li.dataset.text = full.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    li.innerHTML = `<span class="proj"></span> <span class="body"></span>`;
+    li.querySelector(".proj").textContent = proj;
+    li.querySelector(".body").textContent = text;
+    document.getElementById("notesList").appendChild(li);
+    document.getElementById("noteInput").value = "";
+    toast(t("toastNoteAdded"));
+  });
+
+  document.getElementById("exportNotes").addEventListener("click", () => {
+    const items = [...document.querySelectorAll("#notesList li:not(.hidden)")];
+    let md = t("continuityMdTitle");
+    items.forEach(li => {
+      const proj = li.querySelector(".proj")?.textContent || "";
+      const body = li.querySelector(".body")?.textContent || li.textContent;
+      md += `- **${proj}:** ${body}\n`;
+    });
+    const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "continuidad-ink-house.md";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast(t("toastExported"));
+  });
+
+  // —— Timer ——
+  let mode = "focus";
+  let remaining = FOCUS_SECS;
+  let running = false;
+  let interval = null;
+  const display = document.getElementById("timerDisplay");
+  const modeEl = document.getElementById("timerMode");
+  const prog = document.getElementById("timerProg");
+  const startBtn = document.getElementById("timerStart");
+  const startLabel = document.getElementById("timerStartLabel");
+  prog.style.strokeDasharray = String(CIRC);
+
+  function totalForMode() { return mode === "focus" ? FOCUS_SECS : BREAK_SECS; }
+
+  function renderTimer() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    const timeStr = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    const modeStr = mode === "focus" ? t("stepFocus") : t("rest");
+    display.textContent = timeStr;
+    modeEl.textContent = modeStr;
+    const total = totalForMode();
+    const offset = CIRC * (1 - remaining / total);
+    prog.style.strokeDashoffset = String(offset);
+    const label = running ? t("pause") : (remaining < total ? t("resume") : t("start"));
+    startLabel.textContent = label;
+    const soloDisp = document.getElementById("soloTimerDisplay");
+    const soloMode = document.getElementById("soloTimerMode");
+    const soloLabel = document.getElementById("soloTimerStartLabel");
+    if (soloDisp) soloDisp.textContent = timeStr;
+    if (soloMode) soloMode.textContent = modeStr;
+    if (soloLabel) soloLabel.textContent = label;
+  }
+
+  function tick() {
+    if (remaining <= 0) {
+      clearInterval(interval);
+      interval = null;
+      running = false;
+      toast(mode === "focus" ? t("toastSprintDone") : t("toastBreakDone"));
+      if (mode === "focus") {
+        mode = "break";
+        remaining = BREAK_SECS;
+      } else {
+        mode = "focus";
+        remaining = FOCUS_SECS;
+      }
+      renderTimer();
+      return;
+    }
+    remaining -= 1;
+    renderTimer();
+  }
+
+  startBtn.addEventListener("click", () => {
+    if (running) {
+      clearInterval(interval);
+      interval = null;
+      running = false;
+      renderTimer();
+      return;
+    }
+    running = true;
+    interval = setInterval(tick, 1000);
+    renderTimer();
+  });
+
+  document.getElementById("timerBreak").addEventListener("click", () => {
+    clearInterval(interval);
+    interval = null;
+    running = false;
+    mode = "break";
+    remaining = BREAK_SECS;
+    renderTimer();
+    toast(t("toastBreakMode"));
+  });
+
+  document.getElementById("timerReset").addEventListener("click", () => {
+    clearInterval(interval);
+    interval = null;
+    running = false;
+    mode = "focus";
+    remaining = FOCUS_SECS;
+    renderTimer();
+  });
+
+  function persistWords() {
+    const todayKey = new Date().toISOString().slice(0, 10);
+    localStorage.setItem("folio-es-words-today", String(todayWords));
+    localStorage.setItem("folio-es-words-day", todayKey);
+    localStorage.setItem("folio-es-words-week", String(weeklyWords));
+  }
+
+  function saveSessionWords(words, source) {
+    const w = Math.max(0, Math.round(Number(words) || 0));
+    if (!w) { toast(t("toastNeedWords")); return false; }
+    const ms = (document.getElementById("focusManuscript").value || t("untitled")).trim();
+    const dur = elapsedSessionSecs();
+    const entry = {
+      words: w,
+      manuscript: ms,
+      pen: penState.active,
+      mood: getActiveMood() || null,
+      durationSecs: dur,
+      duration: formatDuration(dur),
+      at: new Date().toISOString(),
+      source: source || "session"
+    };
+    const prev = JSON.parse(localStorage.getItem("folio-es-sessions") || "[]");
+    prev.unshift(entry);
+    localStorage.setItem("folio-es-sessions", JSON.stringify(prev.slice(0, 100)));
+    todayWords += w;
+    weeklyWords += w;
+    if (dayWords.length) dayWords[dayWords.length - 1].w = todayWords;
+    persistWords();
+    updateMomentum();
+    drawChart();
+    setProcessStep(4);
+    document.getElementById("sessionWords").value = "";
+    toast(t("toastSessionSaved") + formatNum(w) + " " + t("wordsUnit"));
+    renderLastSession();
+    return true;
+  }
+
+  document.getElementById("saveSession").addEventListener("click", () => {
+    setProcessStep(3);
+    saveSessionWords(document.getElementById("sessionWords").value, "guardar");
+  });
+
+  document.getElementById("logSession").addEventListener("click", () => {
+    const mins = Math.round((totalForMode() - remaining) / 60) || 45;
+    const input = document.getElementById("sessionWords");
+    if (input.value) {
+      saveSessionWords(input.value, "manual");
+    } else {
+      setProcessStep(3);
+      input.focus();
+      toast(t("toastManualHint") + mins + t("toastManualHint2"));
+    }
+  });
+
+  const focusMs = document.getElementById("focusManuscript");
+  focusMs.addEventListener("change", () => {
+    document.getElementById("hoyManuscript").textContent = focusMs.value.trim() || t("untitled");
+    setProcessStep(1);
+  });
+  focusMs.addEventListener("focus", () => setProcessStep(1));
+
+  function startFocusWriting() {
+    const name = focusMs.value.trim() || sampleName("p1");
+    focusMs.value = name;
+    document.getElementById("hoyManuscript").textContent = name;
+    setProcessStep(2);
+    clearInterval(interval);
+    interval = null;
+    const wasFocusPaused = (mode === "focus" && remaining > 0 && remaining < FOCUS_SECS);
+    mode = "focus";
+    if (!wasFocusPaused) remaining = FOCUS_SECS;
+    running = true;
+    interval = setInterval(tick, 1000);
+    renderTimer();
+    document.querySelector(".focus-card").scrollIntoView({ behavior: "smooth", block: "center" });
+    toast(t("toastFocusStarted") + name);
+  }
+
+  document.getElementById("btnEmpezar").addEventListener("click", startFocusWriting);
+  startBtn.addEventListener("click", () => {
+    if (running || remaining < totalForMode()) setProcessStep(2);
+  }, true);
+
+
+  // —— Collectors / export / novel report ——
+  function getProjectRecords() {
+    return [...document.querySelectorAll(".project-list .project")].map(p => {
+      const title = (p.querySelector(".project-name")?.textContent || "").trim();
+      const status = (p.querySelector(".pill")?.textContent || "").trim();
+      const sub = (p.querySelector(".project-sub")?.textContent || "").trim();
+      const progress = (p.querySelector(".progress span")?.style.width || "").trim();
+      return { title, status, sub, progress };
+    });
+  }
+  function getContinuityNotes() {
+    return [...document.querySelectorAll("#notesList li")].map(li => ({
+      project: (li.querySelector(".proj")?.textContent || "").trim(),
+      body: (li.querySelector(".body")?.textContent || "").trim()
+    }));
+  }
+  function getTasks() {
+    return [...document.querySelectorAll(".task-item")].map(li => {
+      const text = (li.querySelector(".task-text")?.textContent || "").trim();
+      const tag = (li.querySelector(".task-tag")?.textContent || "").trim();
+      const done = !!li.querySelector(".check");
+      return { text, tag, done };
+    });
+  }
+  function getSessions() {
+    try { return JSON.parse(localStorage.getItem("folio-es-sessions") || "[]"); }
+    catch (_) { return []; }
+  }
+  function getDraftsMeta() {
+    const all = loadDrafts();
+    return Object.keys(all).map(key => {
+      const d = all[key] || {};
+      return {
+        key,
+        manuscript: d.manuscript || "",
+        pen: d.pen || "",
+        updatedAt: d.updatedAt || "",
+        chars: (d.text || "").length,
+        wordsApprox: (d.text || "").trim() ? (d.text || "").trim().split(/\s+/).length : 0
+      };
+    });
+  }
+  function collectExportPayload() {
+    return {
+      exportedAt: new Date().toISOString(),
+      language: lang,
+      theme: themeMode,
+      penNames: { names: [...penState.names], active: penState.active },
+      sessions: getSessions(),
+      draftsMetadata: getDraftsMeta(),
+      continuityNotes: getContinuityNotes(),
+      projects: getProjectRecords(),
+      tasks: getTasks(),
+      quickNotes: (() => { try { return JSON.parse(localStorage.getItem("folio-quick") || "[]"); } catch (_) { return []; } })()
+    };
+  }
+  function downloadBlob(filename, content, mime) {
+    const blob = new Blob([content], { type: mime });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  function exportDataJson() {
+    const payload = collectExportPayload();
+    downloadBlob("ink-house-datos.json", JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+    toast(t("toastExportJson"));
+  }
+  function exportDataMarkdown() {
+    const p = collectExportPayload();
+    let md = "# Ink House — " + (lang === "en" ? "Data export" : "Exportación de datos") + "\n\n";
+    md += "- **" + (lang === "en" ? "Exported" : "Exportado") + ":** " + p.exportedAt + "\n";
+    md += "- **" + (lang === "en" ? "Theme" : "Tema") + ":** " + p.theme + "\n";
+    md += "- **" + (lang === "en" ? "Language" : "Idioma") + ":** " + p.language + "\n\n";
+    md += "## " + t("penNames") + "\n\n";
+    md += "- **" + (lang === "en" ? "Active" : "Activo") + ":** " + (p.penNames.active || "—") + "\n";
+    p.penNames.names.forEach(n => { md += "- " + n + "\n"; });
+    md += "\n## " + (lang === "en" ? "Projects" : "Proyectos") + "\n\n";
+    p.projects.forEach(pr => {
+      md += "### " + pr.title + "\n";
+      md += "- " + (lang === "en" ? "Status" : "Estado") + ": " + pr.status + "\n";
+      md += "- " + (lang === "en" ? "Progress" : "Progreso") + ": " + (pr.progress || "—") + "\n";
+      if (pr.sub) md += "- " + pr.sub + "\n";
+      md += "\n";
+    });
+    md += "## " + (lang === "en" ? "Sessions log" : "Registro de sesiones") + "\n\n";
+    if (!p.sessions.length) md += "_" + (lang === "en" ? "No sessions yet." : "Sin sesiones aún.") + "_\n\n";
+    p.sessions.forEach(s => {
+      md += "- **" + (s.at || "") + "** · " + (s.manuscript || "—") + " · " + (s.pen || "—") + " · " + (s.words != null ? s.words + " " + t("pal") : "—") + " · " + moodLabel(s.mood) + " · " + (s.duration || (s.durationSecs != null ? formatDuration(s.durationSecs) : "—")) + "\n";
+    });
+    md += "\n## " + t("continuityNotes") + "\n\n";
+    p.continuityNotes.forEach(n => { md += "- **" + n.project + ":** " + n.body + "\n"; });
+    md += "\n## " + (lang === "en" ? "Draft metadata" : "Metadatos de borradores") + "\n\n";
+    if (!p.draftsMetadata.length) md += "_" + (lang === "en" ? "No drafts." : "Sin borradores.") + "_\n\n";
+    p.draftsMetadata.forEach(d => {
+      md += "- **" + (d.manuscript || "—") + "** · " + (d.pen || "—") + " · ~" + d.wordsApprox + " " + t("wordsUnit") + " · " + (d.updatedAt || "") + "\n";
+    });
+    downloadBlob("ink-house-datos.md", md, "text/markdown;charset=utf-8");
+    toast(t("toastExportFullMd"));
+  }
+  function fillNovelSelects() {
+    const projects = getProjectRecords();
+    ["reportNovelSelect", "reportNovelSelectDesk"].forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      const prev = sel.value;
+      sel.innerHTML = "";
+      projects.forEach(pr => {
+        const opt = document.createElement("option");
+        opt.value = pr.title;
+        opt.textContent = pr.title;
+        sel.appendChild(opt);
+      });
+      if (prev && [...sel.options].some(o => o.value === prev)) sel.value = prev;
+    });
+  }
+  function matchProjectName(a, b) {
+    const norm = s => (s || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return norm(a) === norm(b) || norm(a).includes(norm(b)) || norm(b).includes(norm(a));
+  }
+  function generateNovelReport(title) {
+    title = (title || "").trim();
+    if (!title) { toast(t("toastReportNeed")); return; }
+    const projects = getProjectRecords();
+    const proj = projects.find(p => matchProjectName(p.title, title)) || { title, status: "—", sub: "", progress: "" };
+    const sessions = getSessions().filter(s => matchProjectName(s.manuscript, title));
+    const notes = getContinuityNotes().filter(n => matchProjectName(n.project, title));
+    const tasks = getTasks().filter(tk => matchProjectName(tk.text, title) || matchProjectName(tk.tag, title));
+    let md = "# " + (lang === "en" ? "Novel report" : "Reporte por novela") + ": " + proj.title + "\n\n";
+    md += "- **" + (lang === "en" ? "Status" : "Estado") + ":** " + (proj.status || "—") + "\n";
+    md += "- **" + (lang === "en" ? "Progress" : "Progreso") + ":** " + (proj.progress || "—") + "\n";
+    if (proj.sub) md += "- **" + (lang === "en" ? "Series / type" : "Serie / tipo") + ":** " + proj.sub + "\n";
+    md += "- **" + (lang === "en" ? "Generated" : "Generado") + ":** " + new Date().toISOString() + "\n\n";
+    md += "## " + (lang === "en" ? "Sessions" : "Sesiones") + "\n\n";
+    if (!sessions.length) md += "_" + (lang === "en" ? "No sessions logged for this manuscript." : "Sin sesiones registradas para este manuscrito.") + "_\n\n";
+    else {
+      sessions.forEach(s => {
+        md += "- **" + (s.at || "") + "** · " + (s.words != null ? s.words + " " + t("pal") : "—") + " · " + moodLabel(s.mood) + " · " + (s.pen || "—") + " · " + (s.duration || (s.durationSecs != null ? formatDuration(s.durationSecs) : "—")) + "\n";
+      });
+      md += "\n";
+    }
+    md += "## " + t("continuityNotes") + "\n\n";
+    if (!notes.length) md += "_" + (lang === "en" ? "No continuity notes." : "Sin notas de continuidad.") + "_\n\n";
+    else notes.forEach(n => { md += "- " + n.body + "\n"; });
+    md += "\n## " + (lang === "en" ? "Related tasks" : "Tareas relacionadas") + "\n\n";
+    if (!tasks.length) md += "_" + (lang === "en" ? "No related tasks." : "Sin tareas relacionadas.") + "_\n\n";
+    else tasks.forEach(tk => {
+      md += "- " + (tk.done ? "[x]" : "[ ]") + " " + tk.text + (tk.tag ? " _(" + tk.tag + ")_" : "") + "\n";
+    });
+    const safe = proj.title.replace(/[^\w\-]+/g, "_").slice(0, 40) || "novela";
+    downloadBlob("reporte-" + safe + ".md", md, "text/markdown;charset=utf-8");
+    toast(t("toastReport"));
+  }
+
+  // —— Settings ——
+  const modal = document.getElementById("settingsModal");
+  function openSettings(e) {
+    if (e) e.preventDefault();
+    renderSettingsPens();
+    fillNovelSelects();
+    syncThemeButtons();
+    modal.classList.add("open");
+  }
+  function closeSettings() { modal.classList.remove("open"); }
+
+  document.getElementById("openSettings").addEventListener("click", openSettings);
+  document.getElementById("penOpenSettings").addEventListener("click", openSettings);
+  document.getElementById("closeSettings").addEventListener("click", closeSettings);
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeSettings(); });
+  document.getElementById("resetDesk").addEventListener("click", () => {
+    toast(t("toastResetDesk"));
+    closeSettings();
+  });
+
+  document.getElementById("langEs").addEventListener("click", () => setLang("es"));
+  document.getElementById("langEn").addEventListener("click", () => setLang("en"));
+
+  document.getElementById("exportDataJson").addEventListener("click", exportDataJson);
+  document.getElementById("exportDataMd").addEventListener("click", exportDataMarkdown);
+  document.getElementById("generateReport").addEventListener("click", () => {
+    generateNovelReport(document.getElementById("reportNovelSelect").value);
+  });
+  document.getElementById("generateReportDesk").addEventListener("click", () => {
+    generateNovelReport(document.getElementById("reportNovelSelectDesk").value);
+  });
+
+  // —— Quick note ——
+  function saveQuick() {
+    const v = document.getElementById("quickNote").value.trim();
+    if (!v) return;
+    const prev = JSON.parse(localStorage.getItem("folio-quick") || "[]");
+    prev.unshift({ t: v, at: new Date().toISOString() });
+    localStorage.setItem("folio-quick", JSON.stringify(prev.slice(0, 20)));
+    document.getElementById("quickNote").value = "";
+    toast(t("toastQuickSaved"));
+  }
+  document.getElementById("quickNoteBtn").addEventListener("click", saveQuick);
+  document.getElementById("quickNote").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") saveQuick();
+  });
+
+  document.getElementById("addTask").addEventListener("click", () => toast(t("toastAddTask")));
+  document.getElementById("fullStats").addEventListener("click", (e) => {
+    e.preventDefault();
+    toast(t("toastFullStats"));
+  });
+  document.querySelector(".view-cal").addEventListener("click", () => toast(t("toastCal")));
+
+  document.querySelectorAll(".nav a").forEach(a => {
+    a.addEventListener("click", (e) => {
+      if (a.id === "openSettings") return;
+      e.preventDefault();
+      document.querySelectorAll(".nav a").forEach(x => x.classList.remove("active"));
+      a.classList.add("active");
+      if (a.dataset.nav !== "desk") toast(a.textContent.trim() + t("toastDemoView"));
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      document.getElementById("globalSearch").focus();
+    }
+  });
+
+  // —— Drafts ——
+  let draftSaveTimer = null;
+  function draftKey(ms, pen) {
+    return (ms || t("untitled")).trim() + "||" + (pen || "").trim();
+  }
+  function loadDrafts() {
+    try { return JSON.parse(localStorage.getItem(DRAFTS_KEY) || "{}"); }
+    catch (_) { return {}; }
+  }
+  function saveDraftNow() {
+    const ta = document.getElementById("soloDraft");
+    if (!ta) return;
+    const ms = (document.getElementById("focusManuscript").value || t("untitled")).trim();
+    const key = draftKey(ms, penState.active);
+    const all = loadDrafts();
+    all[key] = { text: ta.value, updatedAt: new Date().toISOString(), manuscript: ms, pen: penState.active };
+    localStorage.setItem(DRAFTS_KEY, JSON.stringify(all));
+    const st = document.getElementById("soloDraftStatus");
+    if (st) {
+      const locale = lang === "en" ? "en-US" : "es-GT";
+      st.textContent = t("savedAt") + new Date().toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
+    }
+  }
+  function loadDraftIntoEditor() {
+    const ta = document.getElementById("soloDraft");
+    const ms = (document.getElementById("focusManuscript").value || t("untitled")).trim();
+    const key = draftKey(ms, penState.active);
+    const all = loadDrafts();
+    ta.value = (all[key] && all[key].text) || "";
+    const st = document.getElementById("soloDraftStatus");
+    if (st) st.textContent = ta.value ? t("draftRestored") : t("draftReady");
+  }
+  document.getElementById("soloDraft").addEventListener("input", () => {
+    const st = document.getElementById("soloDraftStatus");
+    if (st) st.textContent = t("saving");
+    clearTimeout(draftSaveTimer);
+    draftSaveTimer = setTimeout(saveDraftNow, 450);
+  });
+
+  function moodLabel(m) {
+    if (m === "bajo") return t("moodLow");
+    if (m === "alto") return t("moodHigh");
+    if (m === "estable") return t("moodSteady");
+    return m || "—";
+  }
+  function formatDuration(secs) {
+    secs = Math.max(0, Math.round(Number(secs) || 0));
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    if (m >= 60) {
+      const h = Math.floor(m / 60);
+      const rm = m % 60;
+      return lang === "en" ? (h + " h " + rm + " min") : (h + " h " + rm + " min");
+    }
+    if (m === 0) return s + " s";
+    return m + " min" + (s ? " " + s + " s" : "");
+  }
+  function renderLastSession() {
+    const el = document.getElementById("lastSessionLine");
+    try {
+      const sess = JSON.parse(localStorage.getItem("folio-es-sessions") || "[]");
+      if (!sess.length) { el.hidden = true; return; }
+      const last = sess[0];
+      const parts = [
+        last.pen || "—",
+        (last.words != null ? formatNum(last.words) + " " + t("pal") : "—"),
+        moodLabel(last.mood),
+        last.durationSecs != null ? formatDuration(last.durationSecs) : (last.duration || "—")
+      ];
+      el.innerHTML = "<strong>" + t("lastSession") + "</strong> · " + parts.join(" · ");
+      el.hidden = false;
+    } catch (_) { el.hidden = true; }
+  }
+
+  // —— Solo escribir ——
+  let soloActive = false;
+
+  function syncSoloMeta() {
+    const ms = (document.getElementById("focusManuscript").value || t("untitled")).trim();
+    document.getElementById("soloManuscript").textContent = ms;
+    document.getElementById("soloPenName").textContent = penState.active || "—";
+    document.getElementById("hoyManuscript").textContent = ms;
+  }
+
+  function enterSoloEscribir() {
+    if (soloActive) return;
+    soloActive = true;
+    document.body.classList.add("solo-escribir");
+    syncSoloMeta();
+    loadDraftIntoEditor();
+    setMoodActive(getActiveMood());
+    const mainW = document.getElementById("sessionWords").value;
+    document.getElementById("soloSessionWords").value = mainW;
+    setProcessStep(2);
+    renderTimer();
+    document.getElementById("soloDraft").focus();
+    toast(t("toastSolo"));
+  }
+
+  function exitSoloEscribir() {
+    if (!soloActive) return;
+    saveDraftNow();
+    const soloW = document.getElementById("soloSessionWords").value;
+    if (soloW !== "") document.getElementById("sessionWords").value = soloW;
+    soloActive = false;
+    document.body.classList.remove("solo-escribir");
+    toast(t("toastBackDesk"));
+  }
+
+  ["btnSoloHeader", "btnSoloHoy", "btnSoloSprint"].forEach(id => {
+    document.getElementById(id).addEventListener("click", enterSoloEscribir);
+  });
+  document.getElementById("btnSalirFoco").addEventListener("click", exitSoloEscribir);
+  document.getElementById("soloTimerStart").addEventListener("click", () => startBtn.click());
+  document.getElementById("soloTimerReset").addEventListener("click", () => {
+    document.getElementById("timerReset").click();
+  });
+  document.getElementById("soloSessionWords").addEventListener("input", () => {
+    document.getElementById("sessionWords").value = document.getElementById("soloSessionWords").value;
+  });
+
+  function elapsedSessionSecs() {
+    const total = totalForMode();
+    if (mode !== "focus") return FOCUS_SECS + (BREAK_SECS - remaining);
+    return Math.max(0, total - remaining);
+  }
+
+  function cerrarSesion() {
+    if (soloActive) {
+      const sw = document.getElementById("soloSessionWords").value;
+      if (sw !== "") document.getElementById("sessionWords").value = sw;
+      saveDraftNow();
+    }
+    const wordsRaw = document.getElementById("sessionWords").value;
+    const w = Math.max(0, Math.round(Number(wordsRaw) || 0));
+    const ms = (document.getElementById("focusManuscript").value || t("untitled")).trim();
+    const mood = getActiveMood();
+    const dur = elapsedSessionSecs();
+    const entry = {
+      words: w,
+      manuscript: ms,
+      pen: penState.active,
+      mood: mood || null,
+      durationSecs: dur,
+      duration: formatDuration(dur),
+      at: new Date().toISOString(),
+      source: "cerrar"
+    };
+    const prev = JSON.parse(localStorage.getItem("folio-es-sessions") || "[]");
+    prev.unshift(entry);
+    localStorage.setItem("folio-es-sessions", JSON.stringify(prev.slice(0, 100)));
+
+    if (w > 0) {
+      todayWords += w;
+      weeklyWords += w;
+      if (dayWords.length) dayWords[dayWords.length - 1].w = todayWords;
+      persistWords();
+      updateMomentum();
+      drawChart();
+    }
+
+    document.getElementById("sessionWords").value = "";
+    document.getElementById("soloSessionWords").value = "";
+    clearInterval(interval);
+    interval = null;
+    running = false;
+    mode = "focus";
+    remaining = FOCUS_SECS;
+    renderTimer();
+    setProcessStep(4);
+    const summary = [
+      penState.active || "—",
+      "+" + formatNum(w) + " " + t("pal"),
+      mood ? moodLabel(mood) : t("noMood"),
+      formatDuration(dur)
+    ].join(" · ");
+    toast(t("toastSessionClosed") + summary);
+    renderLastSession();
+    setTimeout(() => setProcessStep(2), 1800);
+  }
+
+  document.getElementById("btnCerrarSesion").addEventListener("click", cerrarSesion);
+  document.getElementById("btnCerrarSesionSolo").addEventListener("click", cerrarSesion);
+  document.getElementById("btnCerrarSesionSolo2").addEventListener("click", cerrarSesion);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && soloActive) {
+      e.preventDefault();
+      exitSoloEscribir();
+    }
+  });
+
+  focusMs.addEventListener("change", () => {
+    if (soloActive) {
+      saveDraftNow();
+      syncSoloMeta();
+      loadDraftIntoEditor();
+    }
+  });
+
+  // Init
+  savePens(); // persist migrated defaults (Jane/John if old demos)
+  applyI18n();
+  fillNovelSelects();
+  syncThemeButtons();
+  updateMomentum();
+  drawChart();
+  renderTimer();
+  renderLastSession();
+})();
+</script>
+</body>
+</html>
